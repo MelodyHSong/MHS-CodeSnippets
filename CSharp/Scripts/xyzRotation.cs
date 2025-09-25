@@ -7,7 +7,7 @@
 ✰
 */
 
-// Description: This script rotates the attached GameObject around the X, Y, and Z axes at the same time! 💖
+// Description: This script rotates the attached GameObject around the X, Y, and Z axes at the same time! ✰
 
 using UnityEngine;
 
