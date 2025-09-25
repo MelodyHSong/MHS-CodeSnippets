@@ -1,4 +1,4 @@
-﻿/*
+/*
 ✰
 ✰ Author: ✰ MelodyHSong ✰
 ✰ Language: C#
@@ -7,7 +7,7 @@
 ✰
 */
 
-// Description: 
+// Description: This script rotates the attached GameObject around the Y-axis. 
 
 using UnityEngine;
 
