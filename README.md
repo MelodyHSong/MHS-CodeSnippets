@@ -1,2 +1,15 @@
 # MHS-CodeSnippets
-This repository will hace a collection of code that I often reuse in different projects, games, and other applications. 
+This repository will have a collection of code that I often reuse in different projects, games, and other applications. 
+
+## Languages Used
+
+- **C#**
+- **Java**
+- **C++**
+- **U#**
+
+## Programs Used
+
+- **Unreal**
+- **Unity**
+- **Visual Studio 2022**
