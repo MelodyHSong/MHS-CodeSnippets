@@ -4,7 +4,7 @@
 ☆ Language: C# Udon Sharp
 ☆ File Name: LobbyControlPanel.cs
 ☆ Date: 2025-09-29
-☆ Ver: 1.2
+☆ Ver: 1.4
 ☆
 */
 
@@ -44,6 +44,31 @@ public class LobbyControlPanel : UdonSharpBehaviour
     
     [Tooltip("The slider UI component for BGM volume.")]
     public Slider bgmVolumeSlider;
+    
+    // --- NEW GENERIC TOGGLES ---
+    
+    [Header("☆ Generic Toggles (10x) ☆")]
+    [Tooltip("Generic Toggle 01 - Used for general object visibility.")]
+    public GameObject genericToggleTarget01;
+    [Tooltip("Generic Toggle 02 - Used for general object visibility.")]
+    public GameObject genericToggleTarget02;
+    [Tooltip("Generic Toggle 03 - Used for general object visibility.")]
+    public GameObject genericToggleTarget03;
+    [Tooltip("Generic Toggle 04 - Used for general object visibility.")]
+    public GameObject genericToggleTarget04;
+    [Tooltip("Generic Toggle 05 - Used for general object visibility.")]
+    public GameObject genericToggleTarget05;
+    [Tooltip("Generic Toggle 06 - Used for general object visibility.")]
+    public GameObject genericToggleTarget06;
+    [Tooltip("Generic Toggle 07 - Used for general object visibility.")]
+    public GameObject genericToggleTarget07;
+    [Tooltip("Generic Toggle 08 - Used for general object visibility.")]
+    public GameObject genericToggleTarget08;
+    [Tooltip("Generic Toggle 09 - Used for general object visibility.")]
+    public GameObject genericToggleTarget09;
+    [Tooltip("Generic Toggle 10 - Used for general object visibility.")]
+    public GameObject genericToggleTarget10;
+
 
     // --- Core Functions ---
 
@@ -64,6 +89,31 @@ public class LobbyControlPanel : UdonSharpBehaviour
         if (bgmAudioSource != null && bgmVolumeSlider != null)
         {
             bgmVolumeSlider.value = bgmAudioSource.volume;
+        }
+
+        // Check for null generic toggles and throw error if they are missing
+        CheckGenericToggleAssignments();
+    }
+    
+    // Helper function to check all 10 generic assignments
+    private void CheckGenericToggleAssignments()
+    {
+        // We use a list to make iterating and reporting errors cleaner
+        GameObject[] targets = new GameObject[]
+        {
+            genericToggleTarget01, genericToggleTarget02, genericToggleTarget03, genericToggleTarget04, genericToggleTarget05,
+            genericToggleTarget06, genericToggleTarget07, genericToggleTarget08, genericToggleTarget09, genericToggleTarget10
+        };
+
+        for (int i = 0; i < targets.Length; i++)
+        {
+            if (targets[i] == null)
+            {
+                // This logs the error if the target is NULL, as requested.
+                // Note: The logic handles null gracefully if the button is never clicked,
+                // but this error fulfills the requirement to notify the user in the editor.
+                Debug.LogError("☆ GENERIC TOGGLE " + (i + 1).ToString("00") + " ☆ is unassigned (NULL)! Please assign a GameObject or remove the button wiring.");
+            }
         }
     }
     
@@ -95,6 +145,22 @@ public class LobbyControlPanel : UdonSharpBehaviour
         mirrorCIsOn = !mirrorCIsOn;
         _UpdateMirrorStates();
     }
+    
+    // --- NEW GENERIC TOGGLE METHODS (Called via VRC_Interact) ---
+
+    // Note: These methods are designed to fail silently if the target is NULL, 
+    // relying on the CheckGenericToggleAssignments() in Start() to report the error.
+    public void ToggleGeneric01() { if (genericToggleTarget01 != null) genericToggleTarget01.SetActive(!genericToggleTarget01.activeSelf); }
+    public void ToggleGeneric02() { if (genericToggleTarget02 != null) genericToggleTarget02.SetActive(!genericToggleTarget02.activeSelf); }
+    public void ToggleGeneric03() { if (genericToggleTarget03 != null) genericToggleTarget03.SetActive(!genericToggleTarget03.activeSelf); }
+    public void ToggleGeneric04() { if (genericToggleTarget04 != null) genericToggleTarget04.SetActive(!genericToggleTarget04.activeSelf); }
+    public void ToggleGeneric05() { if (genericToggleTarget05 != null) genericToggleTarget05.SetActive(!genericToggleTarget05.activeSelf); }
+    public void ToggleGeneric06() { if (genericToggleTarget06 != null) genericToggleTarget06.SetActive(!genericToggleTarget06.activeSelf); }
+    public void ToggleGeneric07() { if (genericToggleTarget07 != null) genericToggleTarget07.SetActive(!genericToggleTarget07.activeSelf); }
+    public void ToggleGeneric08() { if (genericToggleTarget08 != null) genericToggleTarget08.SetActive(!genericToggleTarget08.activeSelf); }
+    public void ToggleGeneric09() { if (genericToggleTarget09 != null) genericToggleTarget09.SetActive(!genericToggleTarget09.activeSelf); }
+    public void ToggleGeneric10() { if (genericToggleTarget10 != null) genericToggleTarget10.SetActive(!genericToggleTarget10.activeSelf); }
+
 
     // --- Global Quality Setter Methods (Called via VRC_Interact) ---
 
@@ -195,38 +261,47 @@ public class LobbyControlPanel : UdonSharpBehaviour
         }
     }
 }
-
-
-/* * --------------------------------------------------------------------------
+/* * ----------------------------------------------------------------------------
  * ☆ UDON SHARP WIRING GUIDE (FOR VRC_INTERACT COMPONENTS) ☆
  * ----------------------------------------------------------------------------
- ☆
  * All events are wired from the VRC_Interact -> On Interact event to the 
  * LobbyControlManager GameObject using SendCustomEvent(string).
- ☆
  * * * METHOD: ToggleMirrorA
  * PURPOSE: Toggles the mirror at location A on/off.
- ☆ 
  * * METHOD: ToggleMirrorB
  * PURPOSE: Toggles the mirror at location B on/off.
- ☆
  * * METHOD: ToggleMirrorC
  * PURPOSE: Toggles the mirror at location C on/off.
- ☆
- * * METHOD: ToggleQualityLQ
+ * * * METHOD: ToggleQualityLQ
  * PURPOSE: Switches global quality between HQ (1) and LQ (2). (Default is HQ)
- ☆
  * * METHOD: SetQualityOff
  * PURPOSE: Turns all mirrors off (sets global quality index to 0).
- ☆
- * * METHOD: ToggleBGM
+ * * * METHOD: ToggleBGM
  * PURPOSE: Pauses or plays the BGM AudioSource.
- ☆
  * * METHOD: SetBGMVolume
  * PURPOSE: Reads the Slider value and applies it to the BGM AudioSource volume.
- ☆
- * * METHOD: RunTest
+ * * * METHOD: RunTest
  * PURPOSE: Prints a confirmation message ("✔✔✔ DEBUG BUTTON FIRED! ✔✔✔") to the Console.
- ☆
+ * * * --- GENERIC TOGGLES ---
+ * * METHOD: ToggleGeneric01
+ * PURPOSE: Toggles the active state of genericToggleTarget01.
+ * * METHOD: ToggleGeneric02
+ * PURPOSE: Toggles the active state of genericToggleTarget02.
+ * * METHOD: ToggleGeneric03
+ * PURPOSE: Toggles the active state of genericToggleTarget03.
+ * * METHOD: ToggleGeneric04
+ * PURPOSE: Toggles the active state of genericToggleTarget04.
+ * * METHOD: ToggleGeneric05
+ * PURPOSE: Toggles the active state of genericToggleTarget05.
+ * * METHOD: ToggleGeneric06
+ * PURPOSE: Toggles the active state of genericToggleTarget06.
+ * * METHOD: ToggleGeneric07
+ * PURPOSE: Toggles the active state of genericToggleTarget07.
+ * * METHOD: ToggleGeneric08
+ * PURPOSE: Toggles the active state of genericToggleTarget08.
+ * * METHOD: ToggleGeneric09
+ * PURPOSE: Toggles the active state of genericToggleTarget09.
+ * * METHOD: ToggleGeneric10
+ * PURPOSE: Toggles the active state of genericToggleTarget10.
  * ----------------------------------------------------------------------------
  */
