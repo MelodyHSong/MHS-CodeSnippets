@@ -46,3 +46,19 @@ public class ExampleToggle : UdonSharpBehaviour
 {
     // Magic happens here...
 }
+
+``` 
+
+## ☆ License
+
+This repository is licensed under the **MIT License**.
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, provided that you include the original copyright notice and permission notice.
+
+In short:
+* **Do** use this in your personal or commercial VRChat worlds.
+* **Do** modify the code to fit your needs.
+* **Don't** hold me liable if your Udon graph explodes! 💥
+
+A credit to **MelodyHSong** is always appreciated but not strictly required by the license.
+
