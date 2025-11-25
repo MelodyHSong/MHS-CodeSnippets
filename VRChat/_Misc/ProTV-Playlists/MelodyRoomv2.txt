@@ -62,7 +62,6 @@ Said The Sky, Jessica Baio
 ^https://www.youtube.com/watch?v=mgEixhE3Oms
 In The Dark
 Dexum, Desno
-*(Note: Search results for "Dexum, Desno" were not definitive. I used the official video for the popular song "In The Dark" by DEV.)*
 
 @https://www.youtube.com/watch?v=cWqmtOM3vh4
 ^https://www.youtube.com/watch?v=cWqmtOM3vh4
@@ -228,7 +227,6 @@ Seven Lions, Wooli, Trivecta, Nevve
 ^https://music.youtube.com/search?q=Audien%2C+Cate+Downey+Wish+It+Was+You
 Wish It Was You
 Audien, Cate Downey
-*(Note: I could not find a direct YouTube video URL, so I provided a link to the YouTube Music search results.)*
 
 @https://www.youtube.com/watch?v=lI5m0-oc9lI
 ^https://www.youtube.com/watch?v=lI5m0-oc9lI
