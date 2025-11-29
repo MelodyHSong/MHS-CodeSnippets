@@ -12,7 +12,7 @@ There are two easy ways to install the **`☆ Melody Tools ☆`** library into y
 
 ### Option 1: Unity Package (Recommended)
 
-1.  Navigate to the **`MHS-CodeSnippets/VRChat/_Packeges`** directory in this repository.
+1.  Navigate to the **`MHS-CodeSnippets/VRChat/_Packages`** directory in this repository.
 2.  Download the latest **`.unitypackage`** file for the Melody Tools.
 3.  In your Unity project, simply double-click the downloaded `.unitypackage` file to import all files and scripts automatically.
 
