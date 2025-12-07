@@ -25,3 +25,6 @@ Each file in this directory represents a single, independent UdonSharp script, u
 
 * **To use a script:** Simply copy the desired `.cs` file into your Unity project's UdonSharp folder, attach it to a GameObject, and configure the public variables in the Inspector as needed. OR create a new UdonSharp scropt then paste the desired scropt into it. 
 * **Best Practice:** When creating a new standalone script, ensure it does not create a dependency on any other script *within* the `MHS-CodeSnippets` directory structure. If a script requires another custom script to function, it should be placed in the appropriate non-`Standalone` directory.
+
+---
+*Why so lonley? - MelodyHSong* 
