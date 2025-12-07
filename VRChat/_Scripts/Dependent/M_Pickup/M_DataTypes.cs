@@ -14,7 +14,7 @@ using VRC.Udon;
 
 // ☆ Description: Defining the essential collectible data: Types and Rarity levels!
 
-// ☆ The enums MUST be public and NOT nested inside the UdonSharp class! ☆
+// ☆ The enums MUST be public and NOT nested inside an UdonSharp class! ☆
 
 // Possible magical effects of the collected item.
 public enum ItemType
@@ -36,4 +36,11 @@ public enum ItemRarity
     Exquisite,
     Treasured,
     Unique
+}
+
+
+public class M_DataTypes : UdonSharpBehaviour
+{
+    // This empty class is restored because the Udon compiler requires an UdonSharpBehaviour definition 
+    // for any script that has an associated Program Asset.
 }
