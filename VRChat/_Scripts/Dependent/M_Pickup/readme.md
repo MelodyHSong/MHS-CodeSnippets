@@ -1,4 +1,4 @@
-# ☆ Melody's UdonSharp Collectible System ☆
+# ☆ Melody's Pickup ☆
 
 This repository contains a set of UdonSharp scripts designed for VRChat worlds to implement a robust, locally-tracked collectible system with a global, synchronized scoring mechanic. Collectibles disappear only for the player who picks them up, ensuring every user can experience the collection, while the points they gain are added to a universally visible score.
 
