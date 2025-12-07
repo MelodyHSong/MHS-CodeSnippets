@@ -1,4 +1,4 @@
-﻿/*
+/*
 ☆
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Udon Sharp
@@ -36,10 +36,4 @@ public enum ItemRarity
     Exquisite,
     Treasured,
     Unique
-}
-
-
-public class M_DataTypes : UdonSharpBehaviour
-{
-    // This script only needs to exist to define the file/script structure.
 }
