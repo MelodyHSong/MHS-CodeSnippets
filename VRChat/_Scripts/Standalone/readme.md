@@ -1,6 +1,6 @@
 ## ☆ Standalone Scripts ☆
 
-> *What do we call a lonely script? - MelodyHSong*
+> "What do we call a lonely script?"
 
 ### **Overview**
 
