@@ -1,4 +1,4 @@
-﻿/*
+/*
 ☆
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Udon Sharp
@@ -7,17 +7,13 @@
 ☆
 */
 
-// ☆ 
-
-
+// ☆ Description: The official score keeper! It tracks total points and syncs the score for everyone.
+// ☆ This Udon Behaviour MUST be set to SYNCHRONIZED.
 
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
-
-// ☆ Description: The official score keeper! It tracks total points and syncs the score for everyone.
-// ☆ This Udon Behaviour MUST be set to SYNCHRONIZED.
 
 public class M_PointCounter : UdonSharpBehaviour
 {
@@ -31,12 +27,12 @@ public class M_PointCounter : UdonSharpBehaviour
     // ☆ Point values defined by rarity. Index must match the ItemRarity enum!
     public int[] RarityPointValues = new int[]
     {
-        10,  // Common points (easiest to find!)
-        50,  // Uncommon
-        100, // Rumored
-        500, // Exquisite
-        1000,// Treasured
-        5000 // Unique (Big points!)
+        1,      // Common points (easiest to find!)
+        10,     // Uncommon
+        100,    // Rumored
+        250,    // Exquisite
+        750,    // Treasured
+        5000    // Unique (Big points!)
     };
 
     void Start()
@@ -69,8 +65,8 @@ public class M_PointCounter : UdonSharpBehaviour
             int pointsGained = RarityPointValues[rarityIndex];
             totalScore += pointsGained;
 
-            // CORRECTED LINE: Using UnityEngine.Debug to resolve the ambiguity.
-            UnityEngine.Debug.Log($"⭐ Score updated! Gained {pointsGained} for a {((ItemRarity)rarityIndex).ToString()} item. Total: {totalScore}");
+            // Log the score update and total.
+            UnityEngine.Debug.Log($"☆ Score updated! Gained {pointsGained} for a {((ItemRarity)rarityIndex).ToString()} item. Total: {totalScore}");
 
             // Tell the network the score has changed!
             RequestSerialization();
