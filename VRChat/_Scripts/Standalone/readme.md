@@ -1,6 +1,6 @@
-## 🌟Standalone Scripts 🌟
+## ☆ Standalone Scripts ☆
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
+> *What do we call a lonely script? - MelodyHSong*
 
 ### **Overview**
 
