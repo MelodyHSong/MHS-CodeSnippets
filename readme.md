@@ -14,6 +14,7 @@ Here is a breakdown of the languages and tools featured in this collection:
 * **C#** (General & Game Dev)
 * **Java** (Software Engineering)
 * **C++** (Performance & Systems)
+* **Python** (Scripting & Data Analysis)
 * **U#** (VRChat UdonSharp)
 
 ### Engines & Environments
