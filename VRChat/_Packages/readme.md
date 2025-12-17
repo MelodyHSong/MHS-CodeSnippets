@@ -22,7 +22,7 @@ To install any asset found here:
 | Package | Includes | Notes |
 | :--- | :--- | :--- |
 | VRChat/_Packages/**MelodyTools.v1.0.0a.unitypackage** | **Finder!**, **Zapper!**, **Shrinker!** | Editor scripts for asset optimization. Install this to get the **`☆ Melody Tools ☆`** menu! |
-| VRChat/_Packages/**MelodyTools.v1.a.0a.unitypackage** | **Finder!**, **Zapper!**, **Shrinker!** **Maid!**, **Scale!** | Editor scripts for asset optimization. Install this to get the **`☆ Melody Tools ☆`** menu! |
+| VRChat/_Packages/**MelodyTools.v1.1.0a.unitypackage** | **Finder!**, **Zapper!**, **Shrinker!** **Maid!**, **Scale!** | Editor scripts for asset optimization. Install this to get the **`☆ Melody Tools ☆`** menu! |
 
 
 ---
