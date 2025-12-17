@@ -3,9 +3,10 @@
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: AssetZapper.cs
-☆ Date: 2025-11-28
+☆ Version: v1.1.0a
+☆ Date: 2025-12-17 (Updated)
 ☆ Description: Editor tool (Zapper!) to scan the scene, list referenced assets, 
-☆              and calculate their file size/weight for optimization. Includes 
+☆              and calculate their raw file size/weight for optimization. Includes 
 ☆              sorting and total size calculation.
 ☆
 */
@@ -188,9 +189,9 @@ public class AssetZapper : EditorWindow
 
             System.IO.FileInfo info = new System.IO.FileInfo(fullPath);
             long sizeBytes = info.Length;
-            totalSizeBytes += sizeBytes; // Accumulate total size
+            totalSizeBytes += sizeBytes; // Accumulate total raw size
 
-            // Simple creator suggestion based on the first folder name for now.
+            // Simple creator suggestion based on the first folder name
             string creatorSuggestion = path.Split('/').Length > 2 ? path.Split('/')[1] : "N/A";
 
             weightedAssets.Add(new AssetWeight

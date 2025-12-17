@@ -3,7 +3,8 @@
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: AssetLister.cs
-☆ Date: 2025-11-28
+☆ Version: v1.1.0a
+☆ Date: 2025-12-17 (Updated)
 ☆ Description: Editor tool (Finder!) to scan the scene, list referenced assets, 
 ☆              and suggest the creator/package name by skipping generic Unity folders.
 ☆
