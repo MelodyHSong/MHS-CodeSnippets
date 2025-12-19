@@ -11,4 +11,4 @@ This directory contains reusable Python code snippets for scripting, automation,
 * **_DesktopTools**: Specialized standalone utilities for system management and productivity.
 
 ---
-*"Just slithering around~" - MelodyHSong*
+*Just slithering around~ - MelodyHSong*
