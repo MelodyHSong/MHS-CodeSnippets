@@ -6,7 +6,7 @@ This directory contains reusable Java code snippets for various software enginee
 * **IntelliJ IDEA**
 * **Eclipse IDE**
 * **Visual Studio 2022**
-* * **NetBeans** 
+* **NetBeans** 
 * **Standard Java SE Environments**
 
 ---
