@@ -1,9 +1,9 @@
-﻿/*
+/*
 ☆
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: LibraryHub.cs
-☆ Version: v1.1.0a
+☆ Version: v1.1.1a
 ☆ Date: 2025-12-17 (Updated)
 ☆ Description: Establishes the main menu header and links all custom editor utilities 
 ☆              (Finder!, Zapper!, Shrinker!, Scale!, Maid!) into a centralized library hub!
