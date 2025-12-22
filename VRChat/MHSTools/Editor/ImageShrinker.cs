@@ -1,12 +1,12 @@
-﻿/*
+/*
 ☆
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: ImageShrinker.cs
-☆ Version: v1.1.0a
-☆ Date: 2025-12-17 (Updated)
+☆ Version: v1.1.1a
+☆ Date: 2025-12-21 (Updated)
 ☆ Description: Editor tool (Shrinker!) for comprehensive asset optimization: 
-☆              batch-setting Max Texture Size, batch-setting optimized formats,
+☆              batch-setting Max Texture Size (Scale Up/Down), batch-setting optimized formats,
 ☆              and includes a SHADER COMPATIBILITY CHECKER with warnings for 
 ☆              problematic shaders (like Poiyomi on Android).
 ☆
@@ -54,6 +54,9 @@ public class ImageShrinker : EditorWindow
     private bool selectAllFormat = true;
     private bool selectAllShaders = true;
 
+    // ☆ Toggle to allow resizing smaller images to larger resolutions ☆
+    private bool allowUpscaling = false;
+
     // Keywords that generally indicate a deprecated, unsupported, or problematic standard shader
     private static readonly string[] UNSUPPORTED_KEYWORDS = {
         "Legacy", "Autodesk", "Hidden", "Standard (Specular setup)", "Standard (Metallic setup)", "Mobile"
@@ -78,7 +81,6 @@ public class ImageShrinker : EditorWindow
 
     // Shader replacement options
     private readonly string STANDARD_SHADER_NAME = "Standard";
-    private int selectedShaderIndex = 0;
 
     // A reusable centered label style 
     private GUIStyle centeredLabelStyle;
@@ -138,21 +140,26 @@ public class ImageShrinker : EditorWindow
 
         EditorGUILayout.LabelField("1. Max Texture Size Optimization", centeredLabelStyle);
 
-        EditorGUILayout.BeginHorizontal(EditorStyles.helpBox);
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
+        EditorGUILayout.BeginHorizontal();
         // Dropdown to select the target size
         selectedSizeIndex = EditorGUILayout.Popup("Target Max Size:", selectedSizeIndex, SIZE_OPTIONS.Select(s => s.ToString()).ToArray(), GUILayout.Width(200));
-        int targetSize = SIZE_OPTIONS[selectedSizeIndex];
+
+        // Toggle for upscaling logic
+        allowUpscaling = EditorGUILayout.ToggleLeft("Allow Upscaling (Force to Target)", allowUpscaling);
+        EditorGUILayout.EndHorizontal();
 
         // Apply Button
         GUI.enabled = selectedCount > 0;
-        if (GUILayout.Button($"Apply {targetSize} Max Size to {selectedCount} Selected Textures", GUILayout.Height(30)))
+        string btnLabel = allowUpscaling ? $"Scale to {SIZE_OPTIONS[selectedSizeIndex]}" : $"Shrink to {SIZE_OPTIONS[selectedSizeIndex]}";
+        if (GUILayout.Button($"{btnLabel} Max Size for {selectedCount} Selected Textures", GUILayout.Height(30)))
         {
-            ApplyMaxSize(targetSize);
+            ApplyMaxSize(SIZE_OPTIONS[selectedSizeIndex]);
         }
         GUI.enabled = true;
 
-        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
         EditorGUILayout.Space();
 
         // Asset List Display Header
@@ -442,7 +449,7 @@ public class ImageShrinker : EditorWindow
             .ToList();
 
 
-        // 1. Process Textures 
+        // 1. Process Textures 
         var tempList = new List<TextureData>();
         foreach (string path in texturePaths)
         {
@@ -481,7 +488,7 @@ public class ImageShrinker : EditorWindow
         textureDataList = tempList.OrderByDescending(t => t.SizeBytes).ToList();
         selectAllFormat = textureDataList.Any(t => t.IsUnoptimizedFormat);
 
-        // 2. Process Materials 
+        // 2. Process Materials 
         var materialTempList = new List<MaterialData>();
         foreach (string path in materialPaths)
         {
@@ -518,10 +525,11 @@ public class ImageShrinker : EditorWindow
 
         if (selectedTextures.Count == 0) return;
 
+        string operationName = allowUpscaling ? "Scaling" : "Resizing (Down)";
         if (!EditorUtility.DisplayDialog(
-            "Confirm Texture Resize",
+            $"Confirm Texture {operationName}",
             $"Are you sure you want to set the Max Size of {selectedTextures.Count} selected textures to {targetSize}?\n\nThis operation modifies import settings.",
-            "Yes, Resize",
+            "Yes, Apply",
             "Cancel"))
         {
             return;
@@ -537,7 +545,10 @@ public class ImageShrinker : EditorWindow
             {
                 TextureImporterPlatformSettings platformSettings = importer.GetPlatformTextureSettings("");
 
-                if (platformSettings.maxTextureSize > targetSize)
+                // ☆ Core Logic: Only scale down normally, or scale freely if allowed ☆
+                bool shouldApply = allowUpscaling ? (platformSettings.maxTextureSize != targetSize) : (platformSettings.maxTextureSize > targetSize);
+
+                if (shouldApply)
                 {
                     platformSettings.maxTextureSize = targetSize;
                     importer.SetPlatformTextureSettings(platformSettings);
@@ -548,8 +559,8 @@ public class ImageShrinker : EditorWindow
         }
 
         EditorUtility.DisplayDialog("Shrinker! Success",
-                                    $"Successfully set Max Texture Size to {targetSize} for {appliedCount} textures out of {selectedTextures.Count} selected.\n\n" +
-                                    "Note: Textures that were already smaller or equal were skipped.",
+                                    $"Successfully applied {targetSize} Max Size to {appliedCount} textures.\n\n" +
+                                    (allowUpscaling ? "Forced all to target size." : "Skipped textures that were already smaller."),
                                     "OK");
 
         Debug.Log($"☆ Shrinker! Operation Complete. Applied Max Size {targetSize} to {appliedCount} textures. ☆");
