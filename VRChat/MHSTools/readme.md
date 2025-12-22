@@ -41,7 +41,7 @@ There are two easy ways to install the **`☆ Melody Tools ☆`** library into y
 
 * **Core Function:** Texture/Material Optimization & Compression
 * **Purpose:** Your most powerful tool for shrinking world download size and memory usage. It scans for textures and materials and provides multiple batch fix options:
-    * **Max Size Optimization:** Batch-set the **Max Texture Size** (e.g., to 1024, 512, or 256) for selected textures.
+    * **Max Size Optimization:** Batch-set the **Max Texture Size** (e.g., to 1024, 512, or 256) for selected textures. Includes a toggle to **Allow Upscaling**, which forces smaller textures to a higher target resolution if needed.
     * **Format Optimizer:** Detects textures using uncompressed formats (like ARGB32) and allows you to batch-switch them to compressed formats (DXT1/DXT5).
     * **Shader Checker:** Detects materials using unsupported/legacy shaders and offers a batch replacement fix. It also warns specifically about **Poiyomi** shaders for Android/Quest targets, requiring manual changes.
 
