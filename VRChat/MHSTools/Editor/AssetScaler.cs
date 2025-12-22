@@ -3,6 +3,7 @@
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: AssetScaler.cs
+☆ Version: v1.1.1a
 ☆ Date: 2025-12-16 (Revised with Top 20 List)
 ☆ Description: Editor tool (Scale!) to scan the scene and calculate the total 
 ☆              estimated upload size, now listing the top 20 largest assets 
