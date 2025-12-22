@@ -1,3 +1,4 @@
+```markdown
 # ☆ Compiled Unity Packages ☆
 
 > "Ready to drag-and-drop, no assembly required!"
@@ -19,12 +20,11 @@ To install any asset found here:
 
 ## ☆ Contents
 
-| Package | Includes | Status | Notes |
+| Package | Status | Includes | Notes |
 | :--- | :--- | :--- | :--- |
-| VRChat/_Packages/_Tools/**MelodyTools.v1.1.0a.unitypackage** | CURRENT | **Finder!**, **Zapper!**, **Shrinker!** **Maid!**, **Scale!** | Editor scripts for asset optimization. Install this to get the **`☆ Melody Tools ☆`** menu! |
-| VRChat/_Packages/_Tools/**MelodyTools.v1.0.0a.unitypackage** | DEPRECATED | **Finder!**, **Zapper!**, **Shrinker!** | Editor scripts for asset optimization. Install this to get the **`☆ Melody Tools ☆`** menu! |
-
-
+| VRChat/_Packages/_Tools/**MelodyTools.v1.1.1a.unitypackage** | **CURRENT** | **Finder!**, **Zapper!**, **Shrinker!**, **Maid!**, **Scale!** | Added "Allow Upscaling" to Shrinker! Install this for the **`☆ Melody Tools ☆`** menu! |
+| VRChat/_Packages/_Tools/**MelodyTools.v1.1.0a.unitypackage** | DEPRECATED | **Finder!**, **Zapper!**, **Shrinker!**, **Maid!**, **Scale!** | Original release with Maid! and Scale! tools. |
+| VRChat/_Packages/_Tools/**MelodyTools.v1.0.0a.unitypackage** | DEPRECATED | **Finder!**, **Zapper!**, **Shrinker!** | Legacy version with core optimization scripts. |
 
 ---
 
@@ -33,4 +33,6 @@ To install any asset found here:
 If you use any assets from these packages, please refer to the licensing and attribution guidelines found in the main repository `README.md`. A credit to **MelodyHSong** is always appreciated!
 
 ---
-*Pack it up! - MelodyHSong* 
+*Pack it up! - MelodyHSong*
+
+```
