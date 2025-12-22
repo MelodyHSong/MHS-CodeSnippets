@@ -3,7 +3,7 @@
 ☆ Author: ☆ MelodyHSong ☆
 ☆ Language: C# Editor Script (Unity)
 ☆ File Name: ProjectMaid.cs
-☆ Version: v1.1.0a
+☆ Version: v1.1.1a
 ☆ Date: 2025-12-17 (Updated)
 ☆ Description: Editor tool (Maid!) to scan the entire project for unreferenced assets
 ☆              (excluding scenes and prefabs) and move them to a desktop backup folder.
