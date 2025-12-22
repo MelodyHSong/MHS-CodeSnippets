@@ -4,7 +4,7 @@
 
 Welcome to my collection of **C# Editor Scripts** designed specifically to help manage, optimize, and organize assets within the Unity Editor for **VRChat** worlds. These are high-level tools that run *before* you build your world, acting as a personal assistant for your project hygiene!
 
-**Current Version: v1.1.0a**
+**Current Version: v1.1.1a**
 
 ---
 
