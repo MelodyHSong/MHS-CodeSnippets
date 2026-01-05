@@ -103,7 +103,7 @@ def main():
     # Set to drive root to ensure script doesn't lock its own path
     os.chdir(os.environ['SystemDrive'] + "\\")
     
-    target_path = r"F:\VRChat\Projects\Illumi - Edit"
+    target_path = r"ADD/DIR/HERE"
 
     while True:
         if not os.path.exists(target_path):
