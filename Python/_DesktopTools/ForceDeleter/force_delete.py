@@ -3,10 +3,10 @@
 # ☆ Language: Python
 # ☆ File Name: force_delete.py
 # ☆ Date: 2026-01-04
+# ☆ Version 1.0.9a
 # ☆
-# ☆ Version 1.0.8a
-# ☆ Description: Deletes directories using shutil, psutil, 
-# ☆ and Robocopy Mirror. Includes an explicit Reboot Queue option.
+# ☆ Description: Deletes directories with user-provided paths. 
+# ☆ Includes Standard, Robocopy, and Reboot Queue options.
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 import os
@@ -38,7 +38,6 @@ def get_locking_processes(target_path):
 def schedule_delete_on_reboot(target_path):
     """Schedules the folder for deletion on next Windows restart."""
     abs_path = os.path.abspath(target_path)
-    # 0x00000004 = MOVEFILE_DELAY_UNTIL_REBOOT
     result = ctypes.windll.kernel32.MoveFileExW(abs_path, None, 0x00000004)
     if result != 0:
         print(f"SUCCESS: '{abs_path}' queued for deletion on next reboot.")
@@ -70,7 +69,6 @@ def execute_deletion(folder_path):
     confirm = input(f"Confirm deletion of '{folder_path}'?\nType 'DELETE' to confirm: ")
     
     if confirm == 'DELETE':
-        # 1. Kill user-level processes
         procs = get_locking_processes(folder_path)
         for p in procs:
             try:
@@ -81,7 +79,6 @@ def execute_deletion(folder_path):
         
         time.sleep(1)
         
-        # 2. Try standard deletion
         try:
             if os.path.exists(folder_path):
                 shutil.rmtree(folder_path, onerror=remove_readonly)
@@ -91,23 +88,27 @@ def execute_deletion(folder_path):
         except:
             print("Standard deletion failed. Attempting Force Mode (Robocopy)...")
         
-        # 3. Fallback to Robocopy Nuke
         if force_nuke_robocopy(folder_path):
             print("SUCCESS: Folder eliminated via Force Mode.")
             return True
         else:
-            print("FAILURE: Even Force Mode failed. Consider the Reboot Option (Menu Item 3).")
+            print("FAILURE: Even Force Mode failed. Consider the Reboot Option.")
     return False
 
 def main():
     # Set to drive root to ensure script doesn't lock its own path
     os.chdir(os.environ['SystemDrive'] + "\\")
     
-    target_path = r"ADD/DIR/HERE"
+    print("☆ Custom Force Deleter ☆")
+    target_path = input("Enter the full path of the folder to delete: ").strip().strip('"')
+
+    if not target_path or not os.path.exists(target_path):
+        print(f"Error: Path '{target_path}' is invalid or does not exist.")
+        return
 
     while True:
         if not os.path.exists(target_path):
-            print(f"\nTarget path '{target_path}' no longer exists.")
+            print(f"\nTarget path is gone or scheduled for removal.")
             break
 
         print(f"\nTarget: {target_path}")
