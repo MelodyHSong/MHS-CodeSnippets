@@ -1,4 +1,4 @@
-# ☆ File Searcher Pro ☆
+# ☆ File Searcher ☆
 
 An advanced Python-based utility designed to navigate local drives and directories to locate files with precision. This tool replaces slow OS indexing with a lightweight, real-time crawl that ranks results based on string relevance.
 
