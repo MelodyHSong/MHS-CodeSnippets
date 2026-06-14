@@ -1,7 +1,7 @@
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 # ☆ Author: ☆ MelodyHSong ☆
 # ☆ Language: Python
-# ☆ File Name: extract_ae_creations.py
+# ☆ File Name: ae_creations.py
 # ☆ Date: 2026-06-14
 # ☆
 # ☆ Description: Extracts Skyrim Anniversary Edition Creation Club files from
