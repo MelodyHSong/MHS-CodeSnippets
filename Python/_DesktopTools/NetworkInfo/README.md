@@ -1,4 +1,4 @@
-# 👽 Network Performance Analyzer (Alien HUD)
+# 👽 Network Performance Analyzer 👽
 
 A continuous, real-time command-line network performance analyzer built in Python. Designed for dedicated laptop displays, server monitoring, and full-screen terminal dashboards.
 

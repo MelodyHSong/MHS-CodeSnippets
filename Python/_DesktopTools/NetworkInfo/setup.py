@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 setup(
     name="NetworkInfo",
     version="1.0.0",
-    description="Real-Time Network Performance Analyzer (Alien HUD)",
+    description="Real-Time Network Performance Analyzer",
     author="MelodyHSong",
     packages=find_packages(),
     package_data={

@@ -17,7 +17,7 @@ try:
     from .utils import (
         load_data, save_data, get_net_io_counters, LatencyTracker,
         format_bytes, render_ascii_graph, render_dual_ascii_graph,
-        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi,
+        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi, truncate_ansi,
         ANSI_CURSOR_HOME, ANSI_CLEAR_BOTTOM, CLR_RESET, CLR_BOLD, CLR_DIM,
         CLR_BLINK, CLR_CYAN, CLR_LIGHT_CYAN, CLR_GREEN, CLR_LIGHT_GREEN,
         CLR_YELLOW, CLR_LIGHT_YELLOW, CLR_RED, CLR_LIGHT_RED,
@@ -27,7 +27,7 @@ except (ImportError, ValueError):
     from utils import (
         load_data, save_data, get_net_io_counters, LatencyTracker,
         format_bytes, render_ascii_graph, render_dual_ascii_graph,
-        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi,
+        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi, truncate_ansi,
         ANSI_CURSOR_HOME, ANSI_CLEAR_BOTTOM, CLR_RESET, CLR_BOLD, CLR_DIM,
         CLR_BLINK, CLR_CYAN, CLR_LIGHT_CYAN, CLR_GREEN, CLR_LIGHT_GREEN,
         CLR_YELLOW, CLR_LIGHT_YELLOW, CLR_RED, CLR_LIGHT_RED,
@@ -77,6 +77,10 @@ class NetworkAnalyzer:
         self.kaomoji_state = None
         self.kaomoji_timer = time.time()
         self.kaomoji_duration = 1.0  # Rotate Kaomojis every second for dynamic animated display
+
+        # Terminal resize tracking
+        self.last_term_cols = 0
+        self.last_term_lines = 0
 
 
     def update_metrics(self):
@@ -162,9 +166,10 @@ class NetworkAnalyzer:
     def build_frame(self, actual_fps: float) -> str:
         term_cols, term_lines = get_terminal_dimensions()
 
-        # Dynamic graph sizing for full screen
-        graph_width = min(140, max(30, term_cols - 8))
-        graph_height = max(3, min(8, (term_lines - 16) // 3))
+        # Strict horizontal bounding: guarantee box_width + 2 <= term_cols
+        max_allowed_box = max(20, term_cols - 6)
+        graph_width = max(10, min(140, max_allowed_box - 4))
+        box_width = graph_width + 4
 
         state_name, main_color, border_color, kao, status_msg = self.determine_network_state()
 
@@ -175,11 +180,10 @@ class NetworkAnalyzer:
         cur_lat = f"{lat_val:.1f} ms" if lat_val >= 0 else "OFFLINE"
 
         frame_lines = []
-        box_width = graph_width + 4
 
         # Header Box (Colored according to state: GREEN/YELLOW/RED)
         frame_lines.append(f"{CLR_BOLD}{border_color}╔{'═' * box_width}╗{CLR_RESET}")
-        title = f" 👽 ALIEN HUD NETWORK ANALYZER 👽 [STATE: {state_name}] (FPS: {actual_fps:4.1f}/{self.target_fps}) "
+        title = f" 👽 NETWORK ANALYZER 👽 [STATE: {state_name}] (FPS: {actual_fps:4.1f}/{self.target_fps}) "
         frame_lines.append(f"{CLR_BOLD}{border_color}║{CLR_RESET}{main_color}{center_ansi(title, box_width)}{CLR_RESET}{CLR_BOLD}{border_color}║{CLR_RESET}")
         frame_lines.append(f"{CLR_BOLD}{border_color}╠{'═' * box_width}╣{CLR_RESET}")
 
@@ -196,40 +200,94 @@ class NetworkAnalyzer:
         frame_lines.append(f"{CLR_BOLD}{border_color}║{CLR_RESET}{center_ansi(summary_str, box_width)}{CLR_BOLD}{border_color}║{CLR_RESET}")
         frame_lines.append(f"{CLR_BOLD}{border_color}╠{'═' * box_width}╣{CLR_RESET}")
 
-        # Graph 1: Overall Network Speed
-        speed_graph = render_ascii_graph(
-            self.speed_history, width=graph_width, height=graph_height,
-            title="SUB-SPACE BANDWIDTH SPEED", unit=" KB/s", main_color=main_color, border_color=border_color
-        )
-        for line in speed_graph:
-            frame_lines.append(f"  {line}")
+        # Dynamic vertical budget calculation based on available screen rows
+        if term_lines >= 28:
+            # Full layout with 3 graphs and empty line separators
+            graph_height = max(3, min(10, (term_lines - 17) // 3))
 
-        frame_lines.append("")
+            speed_graph = render_ascii_graph(
+                self.speed_history, width=graph_width, height=graph_height,
+                title="SUB-SPACE BANDWIDTH SPEED", unit=" KB/s", main_color=main_color, border_color=border_color
+            )
+            for line in speed_graph:
+                frame_lines.append(f"  {line}")
+            frame_lines.append("")
 
-        # Graph 2: Latency Graph
-        lat_graph = render_ascii_graph(
-            self.latency_history, width=graph_width, height=graph_height,
-            title=f"COSMIC LATENCY (Target: {self.ping_target})", unit=" ms", main_color=main_color, border_color=border_color
-        )
-        for line in lat_graph:
-            frame_lines.append(f"  {line}")
+            lat_graph = render_ascii_graph(
+                self.latency_history, width=graph_width, height=graph_height,
+                title=f"COSMIC LATENCY (Target: {self.ping_target})", unit=" ms", main_color=main_color, border_color=border_color
+            )
+            for line in lat_graph:
+                frame_lines.append(f"  {line}")
+            frame_lines.append("")
 
-        frame_lines.append("")
+            dual_graph = render_dual_ascii_graph(
+                self.download_history, self.upload_history, width=graph_width, height=graph_height,
+                title="TELEMETRY TRANSMISSION (Cyan = Down | Magenta = Up)", main_color=main_color, border_color=border_color
+            )
+            for line in dual_graph:
+                frame_lines.append(f"  {line}")
 
-        # Graph 3: Upload vs Download Dual Graph
-        dual_graph = render_dual_ascii_graph(
-            self.download_history, self.upload_history, width=graph_width, height=graph_height,
-            title="TELEMETRY TRANSMISSION (Cyan = Down | Magenta = Up)", main_color=main_color, border_color=border_color
-        )
-        for line in dual_graph:
-            frame_lines.append(f"  {line}")
+        elif term_lines >= 20:
+            # Compact 3 graphs (no empty separator lines)
+            graph_height = max(2, (term_lines - 15) // 3)
+
+            speed_graph = render_ascii_graph(
+                self.speed_history, width=graph_width, height=graph_height,
+                title="SUB-SPACE BANDWIDTH SPEED", unit=" KB/s", main_color=main_color, border_color=border_color
+            )
+            for line in speed_graph:
+                frame_lines.append(f"  {line}")
+
+            lat_graph = render_ascii_graph(
+                self.latency_history, width=graph_width, height=graph_height,
+                title=f"COSMIC LATENCY (Target: {self.ping_target})", unit=" ms", main_color=main_color, border_color=border_color
+            )
+            for line in lat_graph:
+                frame_lines.append(f"  {line}")
+
+            dual_graph = render_dual_ascii_graph(
+                self.download_history, self.upload_history, width=graph_width, height=graph_height,
+                title="TELEMETRY TRANSMISSION (Cyan = Down | Magenta = Up)", main_color=main_color, border_color=border_color
+            )
+            for line in dual_graph:
+                frame_lines.append(f"  {line}")
+
+        elif term_lines >= 14:
+            # 2 graphs (Speed & Dual Telemetry)
+            graph_height = max(1, (term_lines - 13) // 2)
+
+            speed_graph = render_ascii_graph(
+                self.speed_history, width=graph_width, height=graph_height,
+                title="SUB-SPACE BANDWIDTH SPEED", unit=" KB/s", main_color=main_color, border_color=border_color
+            )
+            for line in speed_graph:
+                frame_lines.append(f"  {line}")
+
+            dual_graph = render_dual_ascii_graph(
+                self.download_history, self.upload_history, width=graph_width, height=graph_height,
+                title="TELEMETRY TRANSMISSION (Cyan = Down | Magenta = Up)", main_color=main_color, border_color=border_color
+            )
+            for line in dual_graph:
+                frame_lines.append(f"  {line}")
+
+        else:
+            # 1 Compact Graph for narrow height windows
+            graph_height = max(1, term_lines - 10)
+            speed_graph = render_ascii_graph(
+                self.speed_history, width=graph_width, height=graph_height,
+                title="BANDWIDTH SPEED", unit=" KB/s", main_color=main_color, border_color=border_color
+            )
+            for line in speed_graph:
+                frame_lines.append(f"  {line}")
 
         # Footer Box
         frame_lines.append(f"{CLR_BOLD}{border_color}╚{'═' * box_width}╝{CLR_RESET}")
         session_down = format_bytes(self.session_total_recv)
         session_up = format_bytes(self.session_total_sent)
         peak_d = format_bytes(self.peak_download)
-        footer_msg = f"{CLR_DIM}Session DL: {session_down} | UL: {session_up} | Peak DL: {peak_d} | Fullscreen Adaptive HUD | Ctrl+C to disconnect{CLR_RESET}"
+        footer_msg = f"{CLR_DIM}Session DL: {session_down} | UL: {session_up} | Peak DL: {peak_d} | Adaptive HUD | Ctrl+C to disconnect{CLR_RESET}"
+        footer_msg = truncate_ansi(footer_msg, term_cols - 4)
         frame_lines.append(f"  {footer_msg}")
 
         return "\n".join(frame_lines)
@@ -246,6 +304,17 @@ class NetworkAnalyzer:
         try:
             while self.running:
                 frame_start = time.perf_counter()
+
+                # Detect window resize / monitor movement and perform clean screen reset
+                term_cols, term_lines = get_terminal_dimensions()
+                if (term_cols, term_lines) != (self.last_term_cols, self.last_term_lines):
+                    self.last_term_cols = term_cols
+                    self.last_term_lines = term_lines
+                    import os
+                    if sys.platform == "win32":
+                        os.system("cls")
+                    else:
+                        safe_write("\033[2J\033[H")
 
                 self.update_metrics()
                 frame_count += 1

@@ -75,8 +75,38 @@ def visible_width(s: str) -> int:
     return w
 
 
+def truncate_ansi(s: str, max_width: int) -> str:
+    """Truncates ANSI-formatted string to a maximum visual column width while preserving ANSI sequences."""
+    if visible_width(s) <= max_width:
+        return s
+    curr_w = 0
+    res = []
+    in_ansi = False
+    ansi_buf = ""
+    for ch in s:
+        if ch == '\x1b':
+            in_ansi = True
+            ansi_buf = ch
+            continue
+        if in_ansi:
+            ansi_buf += ch
+            if ch.isalpha():
+                in_ansi = False
+                res.append(ansi_buf)
+                ansi_buf = ""
+            continue
+
+        w = visible_width(ch)
+        if curr_w + w > max_width:
+            break
+        curr_w += w
+        res.append(ch)
+    return "".join(res) + CLR_RESET
+
+
 def center_ansi(s: str, total_width: int) -> str:
-    """Pads string centered according to its visual column width."""
+    """Pads string centered according to its visual column width, truncating if necessary."""
+    s = truncate_ansi(s, total_width)
     v_len = visible_width(s)
     if v_len >= total_width:
         return s
@@ -270,6 +300,7 @@ def render_ascii_graph(values: List[float], width: int = 40, height: int = 4, ti
     latest = padded[-1]
 
     header = f"{CLR_BOLD}{border_color}⎔─ {title} {CLR_RESET}{CLR_DIM}(Current: {latest:.1f}{unit} | Peak: {max_val:.1f}{unit}){CLR_RESET}"
+    header = truncate_ansi(header, width + 2)
     lines = [header]
 
     for h in reversed(range(height)):
@@ -317,6 +348,7 @@ def render_dual_ascii_graph(down_values: List[float], up_values: List[float], wi
     curr_up = format_bytes(p_up[-1])
 
     header = f"{CLR_BOLD}{border_color}⌬─ {title} {CLR_RESET}{CLR_LIGHT_CYAN}▼ {curr_down}{CLR_RESET} | {CLR_LIGHT_MAGENTA}▲ {curr_up}{CLR_RESET}"
+    header = truncate_ansi(header, width + 2)
     lines = [header]
 
     for h in reversed(range(height)):

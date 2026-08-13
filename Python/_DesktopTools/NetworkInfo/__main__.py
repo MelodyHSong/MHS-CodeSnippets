@@ -24,7 +24,7 @@ def main():
         os.system("")
 
     parser = argparse.ArgumentParser(
-        description="Real-Time Network Performance Analyzer (Alien HUD)"
+        description="Real-Time Network Performance Analyzer"
     )
     parser.add_argument(
         "--fps",
