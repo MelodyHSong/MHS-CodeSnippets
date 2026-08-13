@@ -1,0 +1,8 @@
+README.md
+setup.py
+NetworkInfo.egg-info/PKG-INFO
+NetworkInfo.egg-info/SOURCES.txt
+NetworkInfo.egg-info/dependency_links.txt
+NetworkInfo.egg-info/entry_points.txt
+NetworkInfo.egg-info/requires.txt
+NetworkInfo.egg-info/top_level.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+networkinfo = NetworkInfo.__main__:main

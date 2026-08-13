@@ -1,0 +1,47 @@
+{
+  "settings": {
+    "target_fps": 10,
+    "ping_target": "8.8.8.8",
+    "ping_interval": 0.8,
+    "latency_marginal_ms": 100,
+    "latency_dropped_ms": -1
+  },
+  "alien_kaomojis": {
+    "optimal": [
+      "(👽 ⟟⋏⏁⟒⍀⋏⟒⏁ ⍜⌿⏁⟟⌲⏃⌰)",
+      "(🛸 ☌⍀⟒⟒⏁⟟⋏⌰⌇ Earthling)",
+      "( ☍ ⎔ ☌ Sub-Space Linked )",
+      "(👽⚡ Hyper-Drive Active)",
+      "(🛸✦ Quantum Beam Locked)"
+    ],
+    "marginal": [
+      "(👽💦 ⏁⟒⌰⟒⌿⍜⌠⏁ ⌰⏃⌰!)",
+      "(🛸⚠️ Solar Flare Interference)",
+      "(⍜⌿⌇ Space Dust In Antenna)",
+      "(👽🌀 Wormhole Packet Jitter)"
+    ],
+    "dropped": [
+      "(👽💥 ⎎⏃⏁⏃⏃⌰ ⌰⟟⋏☍ ⌰⍜⌇⏁!)",
+      "(🛸❌ Abducted By Black Hole)",
+      "(⏁⟒⌰⟒⌿⍜⌠⏁ Sub-space Signal Lost!)",
+      "(👽💀 Mothership Offline)"
+    ]
+  },
+  "alien_messages": [
+    "Harvesting raw Earth telemetry for Sector 7G...",
+    "Translating binary traffic into Intergalactic Morse Code...",
+    "Calibrating hyper-dimensional tachyon antennas...",
+    "Intercepting SETI radio transmissions...",
+    "Alien Mothership bandwidth siphon running at 99.8%...",
+    "Sub-space relay beam synchronized with Alpha Centauri...",
+    "Beam me up Scotty, the download speed is out of this world!",
+    "Reticulating cosmic splines across the galaxy...",
+    "Quantum entanglement ping test in progress..."
+  ],
+  "stats": {
+    "session_peak_download_bps": 0,
+    "session_peak_upload_bps": 0,
+    "session_total_download_bytes": 0,
+    "session_total_upload_bytes": 0
+  }
+}
