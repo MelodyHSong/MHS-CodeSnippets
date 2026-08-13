@@ -13,15 +13,26 @@ import time
 import random
 from typing import List, Dict, Any
 
-from .utils import (
-    load_data, save_data, get_net_io_counters, LatencyTracker,
-    format_bytes, render_ascii_graph, render_dual_ascii_graph,
-    get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi,
-    ANSI_CURSOR_HOME, ANSI_CLEAR_BOTTOM, CLR_RESET, CLR_BOLD, CLR_DIM,
-    CLR_BLINK, CLR_CYAN, CLR_LIGHT_CYAN, CLR_GREEN, CLR_LIGHT_GREEN,
-    CLR_YELLOW, CLR_LIGHT_YELLOW, CLR_RED, CLR_LIGHT_RED,
-    CLR_MAGENTA, CLR_LIGHT_MAGENTA, CLR_WHITE
-)
+try:
+    from .utils import (
+        load_data, save_data, get_net_io_counters, LatencyTracker,
+        format_bytes, render_ascii_graph, render_dual_ascii_graph,
+        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi,
+        ANSI_CURSOR_HOME, ANSI_CLEAR_BOTTOM, CLR_RESET, CLR_BOLD, CLR_DIM,
+        CLR_BLINK, CLR_CYAN, CLR_LIGHT_CYAN, CLR_GREEN, CLR_LIGHT_GREEN,
+        CLR_YELLOW, CLR_LIGHT_YELLOW, CLR_RED, CLR_LIGHT_RED,
+        CLR_MAGENTA, CLR_LIGHT_MAGENTA, CLR_WHITE
+    )
+except (ImportError, ValueError):
+    from utils import (
+        load_data, save_data, get_net_io_counters, LatencyTracker,
+        format_bytes, render_ascii_graph, render_dual_ascii_graph,
+        get_terminal_dimensions, hide_cursor, show_cursor, safe_write, center_ansi,
+        ANSI_CURSOR_HOME, ANSI_CLEAR_BOTTOM, CLR_RESET, CLR_BOLD, CLR_DIM,
+        CLR_BLINK, CLR_CYAN, CLR_LIGHT_CYAN, CLR_GREEN, CLR_LIGHT_GREEN,
+        CLR_YELLOW, CLR_LIGHT_YELLOW, CLR_RED, CLR_LIGHT_RED,
+        CLR_MAGENTA, CLR_LIGHT_MAGENTA, CLR_WHITE
+    )
 
 
 class NetworkAnalyzer:

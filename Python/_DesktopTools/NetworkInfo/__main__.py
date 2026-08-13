@@ -11,7 +11,10 @@
 import os
 import sys
 import argparse
-from .core import NetworkAnalyzer
+try:
+    from .core import NetworkAnalyzer
+except (ImportError, ValueError):
+    from core import NetworkAnalyzer
 
 
 
