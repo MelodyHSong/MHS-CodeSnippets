@@ -1,93 +1,107 @@
-# 👽 Kaomoji Network Performance Analyzer (Alien HUD)
+# ☆ Melody's Starship Network Visor ☆
 
-A continuous, real-time command-line network performance analyzer built in Python. Designed for dedicated laptop displays, server monitoring, and full-screen terminal dashboards.
+> "Pinging distant galaxies... sub-space network telemetry online!"
 
-Features **Alien Kaomojis**, funny cosmic quotes, 3 real-time ASCII sparkline graphs, an adaptive health color state machine, and locked-framerate rendering to eliminate terminal flicker.
+Welcome to **Melody's Starship Network Visor**! 👽📡 This is a continuous, terminal-based network monitoring dashboard powered by cute alien expressions, hilarious cosmic commentary, real-time ASCII sparkline graphs, and sub-space latency tracking.
 
----
+Perfect for keeping an eye on your Wi-Fi/Ethernet speed, monitoring ping spikes during gaming sessions, or having a cool sci-fi HUD running on a secondary laptop display.
 
-## ✨ Features
+### ✨ Key Features
 
-- **📊 3 Real-Time ASCII Graphs**:
-  1. **Sub-Space Bandwidth Speed**: Live network throughput in B/s, KB/s, MB/s, or GB/s.
-  2. **Cosmic Latency (Ping)**: Live round-trip latency graph in milliseconds (`ms`).
-  3. **Telemetry Transmission (Dual Graph)**: Side-by-side Download (Cyan) vs Upload (Magenta) bandwidth traffic.
-- **🎨 Dynamic Health State Engine**:
-  - **🟢 OPTIMAL (Green Theme)**: Active link with sub-space low latency ($\le 100\text{ ms}$).
-  - **🟡 MARGINAL (Yellow Theme)**: High cosmic jitter or latency spikes ($> 100\text{ ms}$).
-  - **🔴 DROPPED (Red Theme)**: Signal lost, network disconnection, or ping timeout (`OFFLINE`).
-- **🔒 Locked Framerate & Zero Flicker**: Single-buffer ANSI output with cursor re-positioning (`\033[H`) prevents terminal screen flickering.
-- **🖥️ Fullscreen Responsive Scaling**: Automatically detects terminal window dimensions (`shutil.get_terminal_size()`) and scales graph widths and heights to fill laptop displays cleanly.
-- **⏱️ Sticky Readable Messages**: Cosmic quotes stay visible for 18 seconds and Kaomojis hold for 15 seconds per state for easy reading, without throttling the 10 FPS live metric polling loop.
-- **🌐 Cross-Platform Ready**: Windows (psutil + PowerShell CIM fallback), Linux (psutil + `/proc/net/dev` native kernel fallback), and macOS.
-
----
-
-## 📦 Distribution & Quick Start
-
-Everything belonging to the utility is packaged inside this directory:
-
-### Option 1: Standalone `.exe` Executable ⭐ (Recommended for Windows Laptop)
-- **Location**: `NetworkInfo/dist/NetworkInfo.exe`
-- **Dependencies**: **None** (Python and `pip` are not required).
-- **Run**:
-  ```cmd
-  dist\NetworkInfo.exe
-  ```
+- 📊 **Triple Real-Time ASCII Graphs**:
+  - **Sub-Space Bandwidth Speed**: Live network throughput auto-scaled (B/s, KB/s, MB/s, GB/s).
+  - **Cosmic Latency (Ping)**: Real-time round-trip latency tracking in milliseconds (ms).
+  - **Telemetry Transmission**: Side-by-side Download (Cyan) vs Upload (Magenta) traffic graphs.
+- 🎨 **Dynamic Health Engine**: Adapts terminal colors based on your network health:
+  - 🟢 **OPTIMAL**: Strong link with sub-space low latency ($\le 100\text{ ms}$).
+  - 🟡 **MARGINAL**: High cosmic jitter or ping spikes detected ($> 100\text{ ms}$).
+  - 🔴 **DROPPED**: Signal lost, network connection down, or ping timeout (`OFFLINE`).
+- 🔒 **Flicker-Free Rendering**: Single-buffer ANSI cursor re-positioning (`\033[H`) with capped framerate loop.
+- 🖥️ **Responsive Auto-Scaling**: Dynamically resizes graphs to fill your terminal window cleanly.
+- 🌐 **Cross-Platform Ready**: Windows (`psutil` + PowerShell fallback), Linux (`psutil` + kernel fallback), and macOS.
 
 ---
 
-### Option 2: Python Wheel (`.whl`)
-- **Location**: `NetworkInfo/dist/networkinfo-1.0.0-py3-none-any.whl`
-- **Dependencies**: Any system with Python 3.7+.
-- **Install & Run**:
-  ```bash
-  pip install dist/networkinfo-1.0.0-py3-none-any.whl
-  networkinfo
-  ```
+## ☆ Installation & Prerequisites
+
+Get running in seconds! Choose between pre-built binaries, a Python wheel package, or running directly with Python.
+
+- **For Standalone Executable**: Zero dependencies required!
+- **For Wheel/Python Module**: Python 3.7+ and `psutil`.
+
+### Quick Install
+
+**Option 1: Standalone `.exe` (Recommended for Windows)**
+Run directly without needing Python installed:
+```cmd
+dist\NetworkInfo.exe
+```
+
+**Option 2: Install Python Wheel (`.whl`)**
+```bash
+pip install dist/networkinfo-1.0.0-py3-none-any.whl
+networkinfo
+```
+
+**Option 3: Direct Python Execution**
+```bash
+python -m NetworkInfo
+```
 
 ---
 
-### Option 3: Direct Python Module
-- **Location**: `NetworkInfo/`
-- **Run**:
-  ```bash
-  python -m NetworkInfo
-  ```
+## ☆ Usage
 
----
+Launch the network analyzer from your terminal or command prompt.
 
-## ⚙️ CLI Options
+### Example Usage
 
-Customize framerate or target ping host:
+Standard run with default ping target (`8.8.8.8`) at 10 FPS:
+```bash
+python -m NetworkInfo
+```
 
+Custom framerate and custom ping target:
 ```bash
 python -m NetworkInfo --fps 15 --target 1.1.1.1
 ```
 
-- `--fps`: Target framerate limit to prevent screen flicker (default: `10`).
-- `--target`: IP address or domain to measure ping latency (default: `8.8.8.8`).
+- `--fps`: Target framerate limit to eliminate screen flicker (Default: `10`).
+- `--target`: IP address or domain hostname to ping (Default: `8.8.8.8`).
 
 ---
 
-## 📁 File Structure
+## ☆ Customization
+
+Want to add your own alien expressions, tweak ping warning thresholds, or write custom alien quotes?
+
+All alien reactions, messaging, and alert thresholds are configured inside [`data.json`](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/MHS-CodeSnippets/Python/_DesktopTools/NetworkInfo/data.json). Feel free to tweak them to your heart's content!
+
+---
+
+## ☆ File Structure
 
 ```
 NetworkInfo/
 ├── README.md         # Documentation and usage guide
-├── __main__.py       # CLI entry point with argument parsing
-├── core.py           # NetworkAnalyzer engine, metric ring buffers, FPS locked loop, frame assembly
-├── utils.py          # Network IO sampler, latency thread, ASCII graph builders, UTF-8 renderer
-├── data.json         # Kaomojis, alien quotes, thresholds, and persistent session stats
-├── setup.py          # Standard setuptools wheel packaging manifest
-├── NetworkInfo.spec  # PyInstaller standalone executable specification
-└── dist/             # Pre-built distribution binaries
+├── __main__.py       # CLI entry point & argument parser
+├── core.py           # NetworkAnalyzer engine & telemetry loop
+├── utils.py          # Network samplers & ASCII graph renderers
+├── data.json         # Alien expressions, quotes, thresholds, and stats
+├── setup.py          # Wheel packaging manifest
+├── NetworkInfo.spec  # PyInstaller executable spec
+└── dist/             # Pre-built executable & wheel distribution
     ├── NetworkInfo.exe
     └── networkinfo-1.0.0-py3-none-any.whl
 ```
 
 ---
 
-## 📄 Customizing Kaomojis & Messages
+## ☆ License
 
-All Kaomoji reactions, quotes, and thresholds are stored in [`NetworkInfo/data.json`](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/Python/NetworkInfo/data.json). You can edit `data.json` directly to add your own custom Kaomojis, memes, or adjust latency thresholds!
+This project is licensed under the MIT License. You are free to use, modify, and distribute this code in your own projects— just keep the headers intact!
+
+---
+
+*(If your ping spikes over 9000ms, blaming cosmic radiation interference is officially permitted.) — MelodyHSong*
+
