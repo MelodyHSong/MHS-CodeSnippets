@@ -64,11 +64,47 @@ def visible_width(s: str) -> int:
     return w
 
 
+def truncate_ansi(s: str, max_width: int) -> str:
+    """Safely truncates string to max_width visual columns while preserving active ANSI formatting codes."""
+    if visible_width(s) <= max_width:
+        return s
+
+    v_width = 0
+    result = []
+    i = 0
+    n = len(s)
+
+    while i < n:
+        match = ANSI_REGEX.match(s, i)
+        if match:
+            result.append(match.group(0))
+            i = match.end()
+            continue
+
+        ch = s[i]
+        code = ord(ch)
+        cw = 2 if (code >= 0x1F000 or unicodedata.east_asian_width(ch) in ('W', 'F')) else 1
+
+        if v_width + cw > max_width:
+            break
+
+        v_width += cw
+        result.append(ch)
+        i += 1
+
+    result.append(CLR_RESET)
+    return "".join(result)
+
+
 def center_ansi(s: str, total_width: int) -> str:
-    """Pads string centered according to its visual column width."""
+    """Pads string centered according to its visual column width, truncating safely if too long."""
+    if visible_width(s) > total_width:
+        s = truncate_ansi(s, total_width)
+
     v_len = visible_width(s)
     if v_len >= total_width:
         return s
+
     pad_total = total_width - v_len
     left_pad = pad_total // 2
     right_pad = pad_total - left_pad

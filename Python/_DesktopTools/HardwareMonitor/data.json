@@ -1,0 +1,49 @@
+{
+  "settings": {
+    "target_fps": 10,
+    "sample_interval": 0.5,
+    "cpu_warn_pct": 85.0,
+    "cpu_crit_pct": 95.0,
+    "ram_warn_pct": 85.0,
+    "ram_crit_pct": 95.0,
+    "responsiveness_warn_ms": 5.0,
+    "responsiveness_crit_ms": 15.0
+  },
+  "alien_kaomojis": {
+    "optimal": [
+      "(👽 ⟟⋏⏁⟒⌰⌰⏃⌠⏁ Quantum Cores Nominal)",
+      "(🛸 ☌⍀⟒⟒⏁⟟⋏⌰⌇ Mothership Sentinel 100% Smooth)",
+      "( ☍ ⎔ ☌ Sub-Space Jitter Locked )",
+      "(👽⚡ Hyper-Drive Core Matrix Active)",
+      "(🛸✦ Quantum Processing Beam Synchronized)"
+    ],
+    "warning": [
+      "(👽💦 ⏁⟒⌰⟒⌿⍜⌠⏁ Solar Flare Load Spike!)",
+      "(🛸⚠️ Micro-Stutter In Wormhole Matrix)",
+      "(⍜⌿⌇ Cosmic Ray Interrupt Jitter)",
+      "(👽🌀 Space Dust In CPU Silicon)"
+    ],
+    "critical": [
+      "(👽💥 ⎎⏃⏁⏃⏃⌰ Mothership Core Meltdown!)",
+      "(🛸❌ Abducted By Black Hole Lag)",
+      "(⏁⟒⌰⟒⌿⍜⌠⏁ Sub-Space Thread Crash!)",
+      "(👽💀 Quantum Processor Offline)"
+    ]
+  },
+  "alien_messages": [
+    "Harvesting raw Earth computing telemetry for Sector 7G...",
+    "Translating CPU instructions into Intergalactic Morse Code...",
+    "Calibrating hyper-dimensional tachyon silicon cores...",
+    "Intercepting alien Mothership hardware signals...",
+    "Sub-space relay hardware siphoning running at 99.8%...",
+    "Balancing quantum thread workloads across Alpha Centauri...",
+    "Reticulating cosmic hardware splines across the galaxy...",
+    "Quantum entanglement processor probe running nominal..."
+  ],
+  "stats": {
+    "session_peak_cpu_pct": 10.1,
+    "session_peak_ram_pct": 30.4,
+    "session_peak_gpu_pct": 0.0,
+    "session_worst_jitter_ms": 0.168615999747998
+  }
+}
