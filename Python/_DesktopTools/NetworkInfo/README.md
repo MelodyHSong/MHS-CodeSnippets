@@ -1,4 +1,4 @@
-# 👽 Network Performance Analyzer 👽
+# 👽 Kaomoji Network Performance Analyzer (Alien HUD)
 
 A continuous, real-time command-line network performance analyzer built in Python. Designed for dedicated laptop displays, server monitoring, and full-screen terminal dashboards.
 
@@ -18,7 +18,7 @@ Features **Alien Kaomojis**, funny cosmic quotes, 3 real-time ASCII sparkline gr
   - **🔴 DROPPED (Red Theme)**: Signal lost, network disconnection, or ping timeout (`OFFLINE`).
 - **🔒 Locked Framerate & Zero Flicker**: Single-buffer ANSI output with cursor re-positioning (`\033[H`) prevents terminal screen flickering.
 - **🖥️ Fullscreen Responsive Scaling**: Automatically detects terminal window dimensions (`shutil.get_terminal_size()`) and scales graph widths and heights to fill laptop displays cleanly.
-- **⏱️ Dynamic Animated Quotes & Kaomojis**: Cosmic quotes and Kaomojis rotate every second for a lively animated HUD display without throttling the 10 FPS live metric polling loop.
+- **⏱️ Sticky Readable Messages**: Cosmic quotes stay visible for 18 seconds and Kaomojis hold for 15 seconds per state for easy reading, without throttling the 10 FPS live metric polling loop.
 - **🌐 Cross-Platform Ready**: Windows (psutil + PowerShell CIM fallback), Linux (psutil + `/proc/net/dev` native kernel fallback), and macOS.
 
 ---
@@ -90,4 +90,4 @@ NetworkInfo/
 
 ## 📄 Customizing Kaomojis & Messages
 
-All Kaomoji reactions, quotes, and thresholds are stored in [`data.json`](data.json). You can edit `data.json` directly to add your own custom Kaomojis, memes, or adjust latency thresholds!
+All Kaomoji reactions, quotes, and thresholds are stored in [`NetworkInfo/data.json`](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/Python/NetworkInfo/data.json). You can edit `data.json` directly to add your own custom Kaomojis, memes, or adjust latency thresholds!

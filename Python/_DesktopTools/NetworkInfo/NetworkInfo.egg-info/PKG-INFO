@@ -1,8 +1,8 @@
 Metadata-Version: 2.4
 Name: NetworkInfo
 Version: 1.0.0
-Summary: Real-Time Network Performance Analyzer (Alien HUD)
-Author: MelodyHSong
+Summary: Kaomoji Real-Time Network Performance Analyzer (Alien HUD)
+Author: Antigravity AI
 Requires-Python: >=3.7
 Requires-Dist: psutil>=5.9.0
 Dynamic: author

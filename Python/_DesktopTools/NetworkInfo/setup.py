@@ -1,21 +1,10 @@
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-# ☆ Author: ☆ MelodyHSong ☆
-# ☆ Language: Python
-# ☆ File Name: setup.py
-# ☆ Date: 2026-08-13
-# ☆
-# ☆ Description: Package installation and entry point setup 
-# ☆ configuration for NetworkInfo.
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-
 from setuptools import setup, find_packages
-
 
 setup(
     name="NetworkInfo",
     version="1.0.0",
-    description="Real-Time Network Performance Analyzer",
-    author="MelodyHSong",
+    description="Kaomoji Real-Time Network Performance Analyzer (Alien HUD)",
+    author="Antigravity AI",
     packages=find_packages(),
     package_data={
         "NetworkInfo": ["data.json"],
@@ -31,4 +20,3 @@ setup(
     },
     python_requires=">=3.7",
 )
-

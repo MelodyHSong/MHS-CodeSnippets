@@ -1,13 +1,3 @@
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-# ☆ Author: ☆ MelodyHSong ☆
-# ☆ Language: Python
-# ☆ File Name: __main__.py
-# ☆ Date: 2026-08-13
-# ☆
-# ☆ Description: CLI entry point for NetworkInfo real-time 
-# ☆ terminal performance analyzer with kaomoji status displays.
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-
 import os
 import sys
 import argparse
@@ -24,7 +14,7 @@ def main():
         os.system("")
 
     parser = argparse.ArgumentParser(
-        description="Real-Time Network Performance Analyzer"
+        description="Kaomoji Real-Time Network Performance Analyzer (Framerate Locked)"
     )
     parser.add_argument(
         "--fps",

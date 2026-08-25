@@ -1,18 +1,7 @@
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-# ☆ Author: ☆ MelodyHSong ☆
-# ☆ Language: Python
-# ☆ File Name: utils.py
-# ☆ Date: 2026-08-13
-# ☆
-# ☆ Description: Utility functions for ANSI formatting, network I/O 
-# ☆ tracking, ASCII graph rendering, latency measuring, and JSON data.
-# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
-
 import os
 import sys
 import json
 import time
-
 import socket
 import shutil
 import subprocess
@@ -75,38 +64,8 @@ def visible_width(s: str) -> int:
     return w
 
 
-def truncate_ansi(s: str, max_width: int) -> str:
-    """Truncates ANSI-formatted string to a maximum visual column width while preserving ANSI sequences."""
-    if visible_width(s) <= max_width:
-        return s
-    curr_w = 0
-    res = []
-    in_ansi = False
-    ansi_buf = ""
-    for ch in s:
-        if ch == '\x1b':
-            in_ansi = True
-            ansi_buf = ch
-            continue
-        if in_ansi:
-            ansi_buf += ch
-            if ch.isalpha():
-                in_ansi = False
-                res.append(ansi_buf)
-                ansi_buf = ""
-            continue
-
-        w = visible_width(ch)
-        if curr_w + w > max_width:
-            break
-        curr_w += w
-        res.append(ch)
-    return "".join(res) + CLR_RESET
-
-
 def center_ansi(s: str, total_width: int) -> str:
-    """Pads string centered according to its visual column width, truncating if necessary."""
-    s = truncate_ansi(s, total_width)
+    """Pads string centered according to its visual column width."""
     v_len = visible_width(s)
     if v_len >= total_width:
         return s
@@ -144,11 +103,23 @@ def get_terminal_dimensions() -> Tuple[int, int]:
 
 
 def get_data_file_path() -> str:
-    """Returns absolute path to data.json, supporting PyInstaller bundles."""
-    if hasattr(sys, "_MEIPASS"):
-        bundle_path = os.path.join(sys._MEIPASS, "NetworkInfo", "data.json")
-        if os.path.exists(bundle_path):
-            return bundle_path
+    """Returns absolute path to data.json, supporting PyInstaller bundles and external config."""
+    if getattr(sys, "frozen", False):
+        # 1. Check if user has data.json next to executable
+        exe_dir = os.path.dirname(sys.executable)
+        exe_data = os.path.join(exe_dir, "data.json")
+        if os.path.exists(exe_data):
+            return exe_data
+
+        # 2. Check PyInstaller _MEIPASS bundle directory
+        if hasattr(sys, "_MEIPASS"):
+            bundle_root = os.path.join(sys._MEIPASS, "data.json")
+            if os.path.exists(bundle_root):
+                return bundle_root
+            bundle_sub = os.path.join(sys._MEIPASS, "NetworkInfo", "data.json")
+            if os.path.exists(bundle_sub):
+                return bundle_sub
+
     base_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_dir, "data.json")
 
@@ -170,12 +141,159 @@ def load_data(filepath: str = None) -> Dict[str, Any]:
 
 def save_data(data: Dict[str, Any], filepath: str = None):
     if filepath is None:
-        filepath = get_data_file_path()
+        if getattr(sys, "frozen", False):
+            # When frozen, save to the executable directory to persist across runs
+            filepath = os.path.join(os.path.dirname(sys.executable), "data.json")
+        else:
+            filepath = get_data_file_path()
     try:
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
     except Exception:
         pass
+
+
+# Windows Win32 ctypes helper for zero-subprocess network stats & ICMP ping
+if sys.platform == "win32":
+    import ctypes
+    import struct
+
+    class MIB_IFROW(ctypes.Structure):
+        _fields_ = [
+            ('wszName', ctypes.c_wchar * 256),
+            ('dwIndex', ctypes.c_ulong),
+            ('dwType', ctypes.c_ulong),
+            ('dwMtu', ctypes.c_ulong),
+            ('dwSpeed', ctypes.c_ulong),
+            ('dwPhysAddrLen', ctypes.c_ulong),
+            ('bPhysAddr', ctypes.c_ubyte * 8),
+            ('dwAdminStatus', ctypes.c_ulong),
+            ('dwOperStatus', ctypes.c_ulong),
+            ('dwLastChange', ctypes.c_ulong),
+            ('dwInOctets', ctypes.c_ulong),
+            ('dwInUcastPkts', ctypes.c_ulong),
+            ('dwInNUcastPkts', ctypes.c_ulong),
+            ('dwInDiscards', ctypes.c_ulong),
+            ('dwInErrors', ctypes.c_ulong),
+            ('dwInUnknownProtos', ctypes.c_ulong),
+            ('dwOutOctets', ctypes.c_ulong),
+            ('dwOutUcastPkts', ctypes.c_ulong),
+            ('dwOutNUcastPkts', ctypes.c_ulong),
+            ('dwOutDiscards', ctypes.c_ulong),
+            ('dwOutErrors', ctypes.c_ulong),
+            ('dwOutQLen', ctypes.c_ulong),
+            ('dwDescrLen', ctypes.c_ulong),
+            ('bDescr', ctypes.c_ubyte * 256),
+        ]
+
+    class MIB_IFTABLE(ctypes.Structure):
+        _fields_ = [
+            ('dwNumEntries', ctypes.c_ulong),
+            ('table', MIB_IFROW * 1)
+        ]
+
+    def _get_win32_net_counters() -> Tuple[int, int]:
+        """Reads network interface bytes directly from Windows iphlpapi.dll (0 subprocesses)."""
+        try:
+            iphlpapi = ctypes.windll.iphlpapi
+            buf_len = ctypes.c_ulong(0)
+            iphlpapi.GetIfTable(None, ctypes.byref(buf_len), False)
+            if buf_len.value == 0:
+                return 0, 0
+
+            buf = ctypes.create_string_buffer(buf_len.value)
+            if iphlpapi.GetIfTable(ctypes.cast(buf, ctypes.POINTER(MIB_IFTABLE)), ctypes.byref(buf_len), False) == 0:
+                table = ctypes.cast(buf, ctypes.POINTER(MIB_IFTABLE)).contents
+                num_entries = table.dwNumEntries
+                if num_entries == 0:
+                    return 0, 0
+
+                entries = (MIB_IFROW * num_entries).from_address(ctypes.addressof(table.table))
+                total_in = 0
+                total_out = 0
+                for row in entries:
+                    if row.dwType != 24:  # Exclude loopback (IF_TYPE_SOFTWARE_LOOPBACK = 24)
+                        total_in += row.dwInOctets
+                        total_out += row.dwOutOctets
+                return total_in, total_out
+        except Exception:
+            pass
+        return 0, 0
+
+    class IP_OPTION_INFORMATION(ctypes.Structure):
+        _fields_ = [
+            ('Ttl', ctypes.c_ubyte),
+            ('Tos', ctypes.c_ubyte),
+            ('Flags', ctypes.c_ubyte),
+            ('OptionsSize', ctypes.c_ubyte),
+            ('OptionsData', ctypes.c_void_p),
+        ]
+
+    class ICMP_ECHO_REPLY(ctypes.Structure):
+        _fields_ = [
+            ('Address', ctypes.c_ulong),
+            ('Status', ctypes.c_ulong),
+            ('RoundTripTime', ctypes.c_ulong),
+            ('DataSize', ctypes.c_ushort),
+            ('Reserved', ctypes.c_ushort),
+            ('Data', ctypes.c_void_p),
+            ('Options', IP_OPTION_INFORMATION),
+        ]
+
+    try:
+        _iphlpapi = ctypes.windll.iphlpapi
+        _iphlpapi.IcmpCreateFile.restype = ctypes.c_void_p
+        _iphlpapi.IcmpCloseHandle.argtypes = [ctypes.c_void_p]
+        _iphlpapi.IcmpCloseHandle.restype = ctypes.c_bool
+        _iphlpapi.IcmpSendEcho.argtypes = [
+            ctypes.c_void_p, ctypes.c_ulong, ctypes.c_void_p, ctypes.c_ushort,
+            ctypes.c_void_p, ctypes.c_void_p, ctypes.c_ulong, ctypes.c_ulong
+        ]
+        _iphlpapi.IcmpSendEcho.restype = ctypes.c_ulong
+    except Exception:
+        _iphlpapi = None
+
+    def _win32_icmp_ping(target_host: str, timeout_ms: int = 1000) -> float:
+        """Performs native Win32 ICMP ping using iphlpapi.dll with zero subprocess overhead."""
+        if not _iphlpapi:
+            return -1.0
+        handle = None
+        try:
+            ip_str = socket.gethostbyname(target_host)
+            target_ip = struct.unpack('<I', socket.inet_aton(ip_str))[0]
+
+            handle = _iphlpapi.IcmpCreateFile()
+            if not handle:
+                return -1.0
+
+            send_data = b'ping'
+            reply_size = ctypes.sizeof(ICMP_ECHO_REPLY) + len(send_data) + 32
+            reply_buf = ctypes.create_string_buffer(reply_size)
+
+            res = _iphlpapi.IcmpSendEcho(
+                handle,
+                target_ip,
+                send_data,
+                len(send_data),
+                None,
+                reply_buf,
+                reply_size,
+                timeout_ms
+            )
+
+            if res > 0:
+                reply = ICMP_ECHO_REPLY.from_buffer(reply_buf)
+                if reply.Status == 0:  # IP_SUCCESS = 0
+                    return float(reply.RoundTripTime)
+        except Exception:
+            pass
+        finally:
+            if handle:
+                try:
+                    _iphlpapi.IcmpCloseHandle(handle)
+                except Exception:
+                    pass
+        return -1.0
 
 
 def get_net_io_counters() -> Tuple[int, int]:
@@ -187,22 +305,9 @@ def get_net_io_counters() -> Tuple[int, int]:
     except Exception:
         pass
 
-    # Windows PowerShell / CIM fallback
+    # Windows native ctypes fallback (0 subprocess overhead!)
     if sys.platform == "win32":
-        try:
-            cmd = "powershell -Command \"Get-CimInstance Win32_PerfRawData_Tcpip_NetworkInterface | Select-Object BytesReceivedPersec, BytesSentPersec\""
-            res = subprocess.check_output(cmd, shell=True, timeout=1.5, stderr=subprocess.DEVNULL).decode('utf-8', errors='ignore')
-            recv_total = 0
-            sent_total = 0
-            for line in res.splitlines():
-                parts = line.strip().split()
-                if len(parts) >= 2 and parts[0].isdigit() and parts[1].isdigit():
-                    recv_total += int(parts[0])
-                    sent_total += int(parts[1])
-            if recv_total > 0 or sent_total > 0:
-                return recv_total, sent_total
-        except Exception:
-            pass
+        return _get_win32_net_counters()
 
     # Linux /proc/net/dev fallback
     elif sys.platform.startswith("linux"):
@@ -241,28 +346,27 @@ class LatencyTracker(threading.Thread):
         while self.running:
             start_time = time.perf_counter()
             success = False
-            lat = 0.0
+            lat = -1.0
 
-            # Try TCP socket timing on port 53 (DNS) or 80 first for sub-second precision
-            try:
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.settimeout(1.0)
-                s.connect((self.target_host, 53))
-                s.close()
-                lat = (time.perf_counter() - start_time) * 1000.0
-                success = True
-            except Exception:
-                # Fallback to standard ping command
-                try:
-                    param = "-n" if sys.platform == "win32" else "-c"
-                    cmd = ["ping", param, "1", "-w", "1000", self.target_host]
-                    proc_start = time.perf_counter()
-                    res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=1.2)
-                    if res.returncode == 0:
-                        lat = (time.perf_counter() - proc_start) * 1000.0
+            # 1. On Windows, use Win32 IcmpSendEcho (native C call, 0 subprocesses, true ICMP ping)
+            if sys.platform == "win32":
+                lat = _win32_icmp_ping(self.target_host, timeout_ms=1000)
+                if lat >= 0:
+                    success = True
+
+            # 2. Cross-platform fallback: Try TCP socket timing on common ports (53, 80, 443)
+            if not success:
+                for port in (53, 80, 443):
+                    try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s.settimeout(1.0)
+                        s.connect((self.target_host, port))
+                        s.close()
+                        lat = (time.perf_counter() - start_time) * 1000.0
                         success = True
-                except Exception:
-                    pass
+                        break
+                    except Exception:
+                        pass
 
             if success:
                 self.current_latency_ms = round(lat, 1)
@@ -300,7 +404,6 @@ def render_ascii_graph(values: List[float], width: int = 40, height: int = 4, ti
     latest = padded[-1]
 
     header = f"{CLR_BOLD}{border_color}⎔─ {title} {CLR_RESET}{CLR_DIM}(Current: {latest:.1f}{unit} | Peak: {max_val:.1f}{unit}){CLR_RESET}"
-    header = truncate_ansi(header, width + 2)
     lines = [header]
 
     for h in reversed(range(height)):
@@ -348,7 +451,6 @@ def render_dual_ascii_graph(down_values: List[float], up_values: List[float], wi
     curr_up = format_bytes(p_up[-1])
 
     header = f"{CLR_BOLD}{border_color}⌬─ {title} {CLR_RESET}{CLR_LIGHT_CYAN}▼ {curr_down}{CLR_RESET} | {CLR_LIGHT_MAGENTA}▲ {curr_up}{CLR_RESET}"
-    header = truncate_ansi(header, width + 2)
     lines = [header]
 
     for h in reversed(range(height)):
