@@ -6,6 +6,9 @@ Welcome to **Melody's Starship Network Visor**! 👽📡 This is a continuous, t
 
 Perfect for keeping an eye on your Wi-Fi/Ethernet speed, monitoring ping spikes during gaming sessions, or having a cool sci-fi HUD running on a secondary laptop display.
 
+<img width="2202" height="1155" alt="image" src="https://github.com/user-attachments/assets/ac914aa4-1c63-46f4-ae64-b26508cc1709" />
+
+
 ### ✨ Key Features
 
 - 📊 **Triple Real-Time ASCII Graphs**:
