@@ -6,6 +6,9 @@ Welcome to **Melody's Starship Hardware Analyzer**! 👽✨ This is a real-time,
 
 Whether you're stress-testing a gaming rig, keeping an eye on server health, or just want a sleek, flicker-free sci-fi dashboard on your screen, this tool keeps you informed in style.
 
+<img width="2212" height="1156" alt="image" src="https://github.com/user-attachments/assets/26b1fa6b-6a2e-474f-aacf-44c5b5f2dba1" />
+
+
 ### ✨ Key Features
 
 - 📊 **Triple Real-Time ASCII Dual-Graphs**:
