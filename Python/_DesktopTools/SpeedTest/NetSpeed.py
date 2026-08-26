@@ -7,7 +7,12 @@
 # ☆ Description: Measures download, upload, and ping using Speedtest.net API.
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
+import sys
 import speedtest
+
+# Ensure UTF-8 output encoding for Windows terminals
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 def run_speed_test():
     try:

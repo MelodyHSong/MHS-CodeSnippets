@@ -26,4 +26,4 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ---
 
-*(Witty or warm joke)— Username (MelodyHSong)*
+*Witty or warm joke— Username (MelodyHSong)*
