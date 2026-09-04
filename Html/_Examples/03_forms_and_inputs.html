@@ -1,0 +1,337 @@
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+<!-- ☆ Author: ☆ MelodyHSong ☆          -->
+<!-- ☆ Language: HTML5                    -->
+<!-- ☆ File Name: 03_forms_and_inputs.html-->
+<!-- ☆ Date: 2026-09-03                   -->
+<!-- ☆                                    -->
+<!-- ☆ Description: Demonstrates accessible HTML5 form controls, fieldsets, labels,-->
+<!-- ☆              input types (text, email, password, number, range, date, color,-->
+<!-- ☆              checkbox, radio, file), select optgroups, datalists, and validation. -->
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Accessible Forms &amp; Inputs</title>
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --input-bg: #0d1117;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #1f6feb;
+      --success: #238636;
+      --success-hover: #2ea043;
+      --tag-bg: #21262d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    fieldset {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    legend {
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      font-weight: 500;
+      color: #f0f6fc;
+      font-size: 0.95rem;
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      background-color: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
+    }
+
+    input[type="color"] {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      height: 40px;
+      width: 80px;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .checkbox-label, .radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      padding: 0.65rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    button[type="submit"] {
+      background-color: var(--success);
+      color: #ffffff;
+      border-color: rgba(240, 246, 252, 0.1);
+    }
+
+    button[type="submit"]:hover {
+      background-color: var(--success-hover);
+    }
+
+    button[type="reset"] {
+      background-color: var(--tag-bg);
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    button[type="reset"]:hover {
+      background-color: #30363d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>☆ HTML5 Forms &amp; Inputs Guide ☆</h1>
+      <p>Demonstration of semantic form grouping, accessible label association, modern input types, and native client-side validation.</p>
+    </header>
+
+    <form action="#" method="POST" autocomplete="on">
+      <!-- 1. Account Credentials & Validation -->
+      <fieldset>
+        <legend>Account Details</legend>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">Username <span aria-hidden="true">*</span></label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="20" placeholder="e.g. MelodyHSong" autocomplete="username">
+            <span class="helper-text">3 to 20 characters, required.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="user@example.com" autocomplete="email">
+            <span class="helper-text">Must be a valid email format.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password <span aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" required minlength="8" placeholder="At least 8 characters" autocomplete="new-password">
+          </div>
+
+          <div class="form-group">
+            <label for="role-browser">Preferred Role (Datalist)</label>
+            <!-- Datalist provides autocomplete recommendations while allowing custom text -->
+            <input list="role-options" id="role-browser" name="role_browser" placeholder="Choose or type a role...">
+            <datalist id="role-options">
+              <option value="Front-End Engineer">
+              <option value="Full-Stack Developer">
+              <option value="UI/UX Designer">
+              <option value="Game Developer">
+              <option value="DevOps / Cloud">
+            </datalist>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- 2. Controls & Specialized Input Types -->
+      <fieldset>
+        <legend>Preferences &amp; Customization</legend>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="experience-level">Experience Level (Select Optgroups)</label>
+            <select id="experience-level" name="experience_level">
+              <optgroup label="Beginner / Intermediate">
+                <option value="novice">Novice (&lt; 1 year)</option>
+                <option value="competent" selected>Competent (1-3 years)</option>
+              </optgroup>
+              <optgroup label="Advanced / Expert">
+                <option value="proficient">Proficient (3-5 years)</option>
+                <option value="expert">Expert (5+ years)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="theme-color">Accent Color</label>
+            <input type="color" id="theme-color" name="theme_color" value="#58a6ff">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthdate">Date of Birth</label>
+            <input type="date" id="birthdate" name="birthdate">
+          </div>
+
+          <div class="form-group">
+            <label for="work-hours">Weekly Coding Hours: <span id="hours-val">20</span> hrs</label>
+            <input type="range" id="work-hours" name="work_hours" min="5" max="60" value="20" step="5" oninput="document.getElementById('hours-val').textContent = this.value">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Working Environment</label>
+          <div class="inline-options">
+            <label class="radio-label">
+              <input type="radio" name="work_env" value="remote" checked> Remote
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="work_env" value="hybrid"> Hybrid
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="work_env" value="onsite"> On-site
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Interests &amp; Subscriptions</label>
+          <div class="inline-options">
+            <label class="checkbox-label">
+              <input type="checkbox" name="newsletter" value="true" checked> Subscribe to release notes
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="beta_tester" value="true"> Join preview beta programs
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Bio / Notes</label>
+          <textarea id="bio" name="bio" rows="4" placeholder="Tell us a little bit about your projects..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="avatar-file">Upload Profile Picture (Optional)</label>
+          <input type="file" id="avatar-file" name="avatar_file" accept="image/png, image/jpeg, image/webp">
+        </div>
+      </fieldset>
+
+      <!-- 3. Actions -->
+      <div class="form-actions">
+        <button type="reset">Reset Form</button>
+        <button type="submit">Submit Snippet Form</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

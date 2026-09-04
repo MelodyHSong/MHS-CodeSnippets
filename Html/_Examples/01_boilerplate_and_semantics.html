@@ -1,0 +1,243 @@
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+<!-- ☆ Author: ☆ MelodyHSong ☆          -->
+<!-- ☆ Language: HTML5                    -->
+<!-- ☆ File Name: 01_boilerplate_and_semantics.html -->
+<!-- ☆ Date: 2026-09-03                   -->
+<!-- ☆                                    -->
+<!-- ☆ Description: Demonstrates modern HTML5 document boilerplate, metadata tags, -->
+<!-- ☆              and essential semantic landmark elements (header, nav, main,  -->
+<!-- ☆              article, section, aside, footer).                              -->
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A comprehensive boilerplate demonstrating modern semantic HTML5 layout patterns.">
+  <meta name="author" content="MelodyHSong">
+  <meta name="theme-color" content="#0d1117">
+  <title>HTML5 Boilerplate & Semantic Elements</title>
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --tag-bg: #21262d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header.site-header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    header.site-header h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav.main-nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    nav.main-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    nav.main-nav a:hover {
+      color: var(--accent);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    article.card, section.card, aside.card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    h2, h3 {
+      color: #f0f6fc;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent-hover);
+      font-size: 0.8rem;
+      font-family: monospace;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 0.5rem;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    footer.site-footer {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 1. Header & Navigation Landmark -->
+    <header class="site-header">
+      <span class="tag-badge">&lt;header&gt; + &lt;nav&gt;</span>
+      <h1>☆ Semantic HTML5 Guide ☆</h1>
+      <p>Semantic tags describe their meaning to both the browser and developer, providing accessibility (a11y) and SEO benefits.</p>
+      
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="#article-semantics">Semantic Structure</a></li>
+          <li><a href="#section-landmarks">Landmarks</a></li>
+          <li><a href="#aside-context">Aside Notes</a></li>
+          <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Reference &nearr;</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="layout-grid">
+      <!-- 2. Main Content Landmark -->
+      <main id="main-content">
+        <span class="tag-badge">&lt;main&gt;</span>
+
+        <!-- Article: Self-contained, syndicatable content -->
+        <article id="article-semantics" class="card">
+          <header>
+            <span class="tag-badge">&lt;article&gt; &gt; &lt;header&gt;</span>
+            <h2>Why Use Semantic HTML?</h2>
+            <p><small>Published: <time datetime="2026-09-03">September 3, 2026</time> by MelodyHSong</small></p>
+          </header>
+          
+          <p>
+            Rather than relying exclusively on generic <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements,
+            semantic HTML introduces tags that carry explicit contextual meaning. Screen readers, search engines,
+            and browser accessibility trees consume these landmarks to navigate web content efficiently.
+          </p>
+
+          <blockquote>
+            "Good code is self-documenting; good markup is self-describing."
+            <cite>— Front-End Design Principles</cite>
+          </blockquote>
+        </article>
+
+        <!-- Section: Thematic grouping of content -->
+        <section id="section-landmarks" class="card">
+          <span class="tag-badge">&lt;section&gt;</span>
+          <h2>Key Semantic Landmarks</h2>
+          <p>Each section represents a distinct thematic chunk of content, typically with its own heading:</p>
+          <ul>
+            <li><strong>&lt;header&gt;</strong>: Introductory content, mastheads, navigational groups.</li>
+            <li><strong>&lt;nav&gt;</strong>: Major navigation links and menus.</li>
+            <li><strong>&lt;main&gt;</strong>: Unique, central content of the document.</li>
+            <li><strong>&lt;article&gt;</strong>: Independent, distributable content items.</li>
+            <li><strong>&lt;section&gt;</strong>: Thematic grouping with heading hierarchy.</li>
+            <li><strong>&lt;aside&gt;</strong>: Tangentially related content, sidebars, or callouts.</li>
+            <li><strong>&lt;footer&gt;</strong>: Authorship, licensing, copyright, back-to-top links.</li>
+          </ul>
+        </section>
+      </main>
+
+      <!-- 3. Aside Landmark: Tangential content / sidebar -->
+      <aside id="aside-context" class="card">
+        <span class="tag-badge">&lt;aside&gt;</span>
+        <h3>Pro-Tips & Notes</h3>
+        <p>Always specify the document language in the root element:</p>
+        <p><code>&lt;html lang="en"&gt;</code></p>
+        <hr style="border-color: var(--border-color); margin: 1rem 0;">
+        <p>Ensure every page has a descriptive <code>&lt;title&gt;</code> and responsive <code>viewport</code> meta tag for mobile devices.</p>
+      </aside>
+    </div>
+
+    <!-- 4. Footer Landmark -->
+    <footer class="site-footer">
+      <span class="tag-badge">&lt;footer&gt;</span>
+      <p>&copy; 2026 MelodyHSong &bull; MHS-CodeSnippets Collection</p>
+      <p><small>Licensed under the MIT License. Always keep your code accessible!</small></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -14,6 +14,7 @@ Here is a breakdown of the languages, tools, and environments featured in this c
 * **C#** (General & Game Dev)
 * **C++** (Performance & Systems)
 * **Elixir** (Functional & Concurrency)
+* **HTML / Web** (Front-End, Semantics & UI)
 * **Java** (Software Engineering)
 * **Lua** (Embedded & Game Scripting)
 * **Python** (Scripting, Desktop Tools & Automation)

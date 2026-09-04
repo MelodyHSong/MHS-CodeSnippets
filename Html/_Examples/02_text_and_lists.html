@@ -1,0 +1,281 @@
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+<!-- ☆ Author: ☆ MelodyHSong ☆          -->
+<!-- ☆ Language: HTML5                    -->
+<!-- ☆ File Name: 02_text_and_lists.html  -->
+<!-- ☆ Date: 2026-09-03                   -->
+<!-- ☆                                    -->
+<!-- ☆ Description: Demonstrates typographical markup, inline formatting tags    -->
+<!-- ☆              (strong, em, mark, del, ins, sub, sup, code, kbd, abbr) and  -->
+<!-- ☆              list structures (ul, ol with types, nested, and dl/dt/dd).  -->
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Text Formatting & Lists</title>
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --warning: #d29922;
+      --tag-bg: #21262d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      color: #f0f6fc;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-family: monospace;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Inline formatting highlights */
+    mark {
+      background-color: #5c4414;
+      color: #ffd33d;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+    }
+
+    del {
+      color: #f85149;
+      text-decoration: line-through;
+    }
+
+    ins {
+      color: var(--success);
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background: var(--tag-bg);
+      color: #ff7b72;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background: #090d13;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 0.75rem 0;
+    }
+
+    pre code {
+      background: none;
+      color: #79c0ff;
+      padding: 0;
+    }
+
+    kbd {
+      background-color: #21262d;
+      border: 1px solid #484f58;
+      border-bottom-color: #6e7681;
+      border-radius: 4px;
+      box-shadow: inset 0 -1px 0 #6e7681;
+      color: #f0f6fc;
+      display: inline-block;
+      font-family: monospace;
+      font-size: 0.85em;
+      padding: 0.15rem 0.4rem;
+    }
+
+    abbr {
+      text-decoration: underline dotted var(--accent);
+      cursor: help;
+    }
+
+    /* Lists styling */
+    ul, ol {
+      padding-left: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    dt {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    dd {
+      color: var(--text-main);
+      margin-left: 0;
+    }
+
+    @media (max-width: 600px) {
+      dl {
+        grid-template-columns: 1fr;
+      }
+      dd {
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <h1>☆ Text Formatting & Lists ☆</h1>
+      <p>A reference guide covering inline semantic elements, character styling, and various list structures in HTML5.</p>
+    </header>
+
+    <!-- 1. Inline Text Formatting -->
+    <section class="card">
+      <span class="tag-badge">Inline Semantics</span>
+      <h2>Typographical Elements</h2>
+      
+      <p>
+        <strong>Strong importance</strong> with <code>&lt;strong&gt;</code> and <em>stress emphasis</em> with <code>&lt;em&gt;</code>.
+      </p>
+
+      <p>
+        Highlighting key search results or text: <mark>This is highlighted with &lt;mark&gt;.</mark>
+      </p>
+
+      <p>
+        Editorial revisions: <del>Deprecated method</del> replaced by <ins>modern API standard</ins>.
+      </p>
+
+      <p>
+        Chemical and mathematical expressions: Water is H<sub>2</sub>O (subscript), while 2<sup>10</sup> = 1024 (superscript).
+      </p>
+
+      <p>
+        Abbreviations with expanded tooltips: Hover over <abbr title="HyperText Markup Language">HTML</abbr> or <abbr title="Cascading Style Sheets">CSS</abbr>.
+      </p>
+
+      <p>
+        Keyboard shortcuts: Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> to open Developer Tools.
+      </p>
+
+      <p>Computer code block demonstration:</p>
+      <pre><code>// Example JavaScript block
+function greet(user) {
+  console.log(`Hello, ${user}!`);
+}
+greet("Melody");</code></pre>
+    </section>
+
+    <!-- 2. Ordered and Unordered Lists -->
+    <section class="card">
+      <span class="tag-badge">&lt;ul&gt; &amp; &lt;ol&gt;</span>
+      <h2>Standard & Nested Lists</h2>
+
+      <h3>Unordered List (Bullet Points)</h3>
+      <ul>
+        <li>Front-End Web Development
+          <ul>
+            <li>HTML5 (Semantic markup)</li>
+            <li>CSS3 (Flexbox &amp; Grid)</li>
+            <li>JavaScript (ES6+ features)</li>
+          </ul>
+        </li>
+        <li>Version Control (Git &amp; GitHub)</li>
+      </ul>
+
+      <h3>Ordered Lists (Sequence & Types)</h3>
+      <p>Standard numeric sequence:</p>
+      <ol>
+        <li>Define data requirements and schemas</li>
+        <li>Write semantic HTML markup</li>
+        <li>Apply responsive styles and tokens</li>
+      </ol>
+
+      <p>Uppercase Roman numerals starting at 3:</p>
+      <ol type="I" start="3">
+        <li>Chapter Three: Layout Fundamentals</li>
+        <li>Chapter Four: Accessibility (a11y)</li>
+        <li>Chapter Five: Form Validation</li>
+      </ol>
+    </section>
+
+    <!-- 3. Description Lists -->
+    <section class="card">
+      <span class="tag-badge">&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;</span>
+      <h2>Description List (Key-Value Glossary)</h2>
+      <p>Ideal for metadata, glossaries, dictionaries, or key-value pairings:</p>
+
+      <dl>
+        <dt>HTML5</dt>
+        <dd>The fifth and current major version of the World Wide Web Consortium (W3C) standard markup language.</dd>
+
+        <dt>CSS3</dt>
+        <dd>The style sheet language used for describing the visual presentation of a document written in markup.</dd>
+
+        <dt>Semantic Web</dt>
+        <dd>An extension of the World Wide Web through standards set by the W3C to make web pages more machine-readable.</dd>
+      </dl>
+    </section>
+  </div>
+</body>
+</html>

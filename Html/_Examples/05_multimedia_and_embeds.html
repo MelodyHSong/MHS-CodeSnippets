@@ -1,0 +1,233 @@
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+<!-- ☆ Author: ☆ MelodyHSong ☆          -->
+<!-- ☆ Language: HTML5                    -->
+<!-- ☆ File Name: 05_multimedia_and_embeds.html -->
+<!-- ☆ Date: 2026-09-03                   -->
+<!-- ☆                                    -->
+<!-- ☆ Description: Demonstrates modern multimedia embeds including responsive   -->
+<!-- ☆              picture elements, figures & captions, native audio/video      -->
+<!-- ☆              with fallback text, inline SVGs, and sandboxed iframes.       -->
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Multimedia &amp; Embeds</title>
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --tag-bg: #21262d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    h1, h2, h3 {
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-family: monospace;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 0.75rem;
+    }
+
+    figure {
+      background: #090d13;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .media-box {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 4px;
+      background-color: #21262d;
+    }
+
+    audio, video {
+      width: 100%;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+    }
+
+    .svg-showcase {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #090d13;
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+
+    .svg-icon {
+      width: 48px;
+      height: 48px;
+      fill: var(--accent);
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      margin-top: 0.75rem;
+    }
+
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <h1>☆ Multimedia &amp; Embeds ☆</h1>
+      <p>Reference examples for responsive images, figures, native HTML5 media players, scalable graphics, and sandboxed iframes.</p>
+    </header>
+
+    <!-- 1. Figures & Responsive Picture -->
+    <section class="card">
+      <span class="tag-badge">&lt;picture&gt; &amp; &lt;figure&gt;</span>
+      <h2>Responsive Images &amp; Figures</h2>
+      <p>The <code>&lt;picture&gt;</code> element allows art direction by serving tailored images depending on media queries:</p>
+
+      <figure>
+        <picture>
+          <source media="(min-width: 800px)" srcset="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&auto=format&fit=crop&q=80">
+          <source media="(min-width: 500px)" srcset="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80">
+          <img class="media-box" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&auto=format&fit=crop&q=80" alt="Code displayed on an ultra-wide monitor screen" loading="lazy" decoding="async">
+        </picture>
+        <figcaption>Figure 1: Responsive coding setup demonstration with alt description and lazy loading.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 2. Audio & Video -->
+    <section class="card">
+      <span class="tag-badge">&lt;audio&gt; &amp; &lt;video&gt;</span>
+      <h2>Native Audio &amp; Video Players</h2>
+      <p>HTML5 provides browser-native media players without requiring third-party plugins:</p>
+
+      <h3>Native Audio</h3>
+      <audio controls preload="metadata">
+        <source src="audio_sample.mp3" type="audio/mpeg">
+        <source src="audio_sample.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <h3 style="margin-top: 1.5rem;">Native Video (with Caption Track)</h3>
+      <video controls poster="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80" preload="none">
+        <source src="video_sample.mp4" type="video/mp4">
+        <source src="video_sample.webm" type="video/webm">
+        <track kind="subtitles" src="subtitles_en.vtt" srclang="en" label="English" default>
+        Your browser does not support the video element.
+      </video>
+    </section>
+
+    <!-- 3. Inline Vector Graphics (SVG) -->
+    <section class="card">
+      <span class="tag-badge">&lt;svg&gt;</span>
+      <h2>Inline Scalable Vector Graphics</h2>
+      <p>Inline SVGs scale infinitely without pixelation, require zero HTTP asset round-trips, and can be styled with CSS:</p>
+
+      <div class="svg-showcase">
+        <!-- Star Icon SVG -->
+        <svg class="svg-icon" viewBox="0 0 24 24" role="img" aria-label="Golden Star Icon">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+        <div>
+          <strong style="color: #f0f6fc;">Scalable Icon Badge</strong>
+          <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Inline SVG path rendered directly into the DOM tree.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Sandboxed iFrame -->
+    <section class="card">
+      <span class="tag-badge">&lt;iframe&gt;</span>
+      <h2>Secure Sandboxed iFrame</h2>
+      <p>Always specify a clear <code>title</code> for accessibility and restrict capabilities with <code>sandbox</code>:</p>
+
+      <div class="iframe-wrapper">
+        <iframe 
+          src="about:blank"
+          title="Sandboxed Demonstration Frame"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          referrerpolicy="no-referrer">
+        </iframe>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

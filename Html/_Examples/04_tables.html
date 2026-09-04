@@ -1,0 +1,263 @@
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+<!-- ☆ Author: ☆ MelodyHSong ☆          -->
+<!-- ☆ Language: HTML5                    -->
+<!-- ☆ File Name: 04_tables.html          -->
+<!-- ☆ Date: 2026-09-03                   -->
+<!-- ☆                                    -->
+<!-- ☆ Description: Demonstrates accessible HTML5 tabular data structures,       -->
+<!-- ☆              captions, thead, tbody, tfoot, scoped headers (col/row),     -->
+<!-- ☆              and cell spanning (colspan & rowspan).                       -->
+<!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Accessible Tables</title>
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --table-header-bg: #21262d;
+      --table-hover: #1f242c;
+      --table-zebra: #13171e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    h1, h2 {
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 0.75rem 1rem;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    thead th {
+      background-color: var(--table-header-bg);
+      color: #f0f6fc;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    tbody td, tbody th {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    tbody th {
+      font-weight: 600;
+      color: #f0f6fc;
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--table-zebra);
+    }
+
+    tbody tr:hover {
+      background-color: var(--table-hover);
+    }
+
+    tfoot td, tfoot th {
+      padding: 0.75rem 1rem;
+      background-color: var(--table-header-bg);
+      font-weight: 600;
+      color: #f0f6fc;
+      border-top: 2px solid var(--border-color);
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge-active {
+      background: #1f6feb22;
+      color: #58a6ff;
+      border: 1px solid #1f6feb66;
+    }
+
+    .badge-complete {
+      background: #23863622;
+      color: #3fb950;
+      border: 1px solid #23863666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <h1>☆ Tabular Data Structures ☆</h1>
+      <p>Accessible HTML5 tables utilizing semantic tags, proper heading scopes, and spanning techniques.</p>
+    </header>
+
+    <!-- Table 1: Standard Accessible Data Grid -->
+    <section class="card">
+      <h2>Project Release Schedule</h2>
+      <p>Using <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, and <code>scope="col"</code> / <code>scope="row"</code>:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <caption>Quarterly Release Roadmap (2026)</caption>
+          <thead>
+            <tr>
+              <th scope="col">Module / Language</th>
+              <th scope="col">Version</th>
+              <th scope="col">Target Release</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="text-right">Estimated Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">HTML Snippets</th>
+              <td>v1.0.0</td>
+              <td>2026-Q3</td>
+              <td><span class="status-badge badge-complete">Completed</span></td>
+              <td class="text-right">12 hrs</td>
+            </tr>
+            <tr>
+              <th scope="row">Lua Game Utilities</th>
+              <td>v1.4.0</td>
+              <td>2026-Q3</td>
+              <td><span class="status-badge badge-active">In Progress</span></td>
+              <td class="text-right">24 hrs</td>
+            </tr>
+            <tr>
+              <th scope="row">Elixir OTP Supervision</th>
+              <td>v2.0.0</td>
+              <td>2026-Q4</td>
+              <td><span class="status-badge badge-active">In Progress</span></td>
+              <td class="text-right">36 hrs</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="4">Total Estimated Engineering Investment</th>
+              <td class="text-right">72 hrs</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- Table 2: Multi-Row and Multi-Column Spanning -->
+    <section class="card">
+      <h2>Cell Spanning Demonstration (Colspan &amp; Rowspan)</h2>
+      <p>Using <code>colspan</code> across columns and <code>rowspan</code> down rows:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <caption>Workshop Track Schedule</caption>
+          <thead>
+            <tr>
+              <th scope="col">Time Block</th>
+              <th scope="col">Room A (Web Track)</th>
+              <th scope="col">Room B (Systems Track)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">09:00 - 10:00</th>
+              <td colspan="2" style="text-align: center; font-style: italic; color: var(--accent);">
+                Keynote Address &bull; Main Auditorium (Colspan = 2)
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">10:00 - 11:30</th>
+              <td rowspan="2">
+                Modern HTML5 &amp; CSS Layouts<br>
+                <small style="color: var(--text-muted);">Extended Workshop (Rowspan = 2)</small>
+              </td>
+              <td>C++ Performance Patterns</td>
+            </tr>
+            <tr>
+              <th scope="row">11:30 - 12:30</th>
+              <td>Lua JIT Embedded Systems</td>
+            </tr>
+            <tr>
+              <th scope="row">12:30 - 13:30</th>
+              <td colspan="2" style="text-align: center; color: var(--text-muted);">
+                Lunch Break &amp; Open Networking (Colspan = 2)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
