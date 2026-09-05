@@ -1,0 +1,38 @@
+# ==========================================
+# ⭐ StellarNotes — Git Ignore Configuration
+# ==========================================
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# PyInstaller Build Artifacts & Executables
+# (Distributable executables should be published via GitHub Releases)
+build/
+dist/
+*.manifest
+*.spec.bak
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+# User Notes Data & Runtime State
+# Ignore user-created notes and runtime metadata, but keep the starter welcome note
+notes/*
+!notes/Welcome_to_StellarNotes.md
+notes/.stellar_metadata.json

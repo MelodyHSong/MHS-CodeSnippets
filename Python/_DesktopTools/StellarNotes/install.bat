@@ -26,4 +26,3 @@ echo.
 echo ================================================================
 echo Press any key to exit this installer...
 pause >nul
- 

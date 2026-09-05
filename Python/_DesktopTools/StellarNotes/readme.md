@@ -101,18 +101,25 @@ All registry keys under `HKCU` are cleanly wiped, and the Windows shell cache is
 
 ---
 
+## ☆ Quick Launch & Standalone Building
+
+- **Launch StellarNotes**: Double-click `run.bat` (automatically launches the compiled `.exe` or starts windowless via `pythonw`).
+- **Build Standalone Executable**: Double-click `build.bat` to compile `dist\stellar_notes.exe` using PyInstaller.
+
+---
+
 ## ☆ Prerequisites (For Python / Dev Mode)
 
-If running directly from source rather than the compiled `.exe`:
+If running directly from source or compiling the executable:
 ```bash
-python -m pip install pillow
+python -m pip install -r requirements.txt
 ```
 *(Windows SAPI audio and Tkinter GUI use built-in standard Windows and Python libraries—no heavy external dependencies required!)*
 
 ---
 
 ## ☆ License
-This project is licensed under the MIT License. Keep the galaxy headers intact!
+This project is licensed under the [MIT License](LICENSE). Keep the galaxy headers intact!
 
 ---
 
