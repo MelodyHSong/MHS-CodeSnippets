@@ -1,0 +1,13 @@
+# ⭐ Desktop Tool Template — Python Dependencies
+#
+# Standard Library Modules Used (No installation required):
+#   - tkinter, ttk (GUI framework)
+#   - os, sys, json (Filesystem and state persistence)
+#   - threading, queue (Asynchronous background tasks)
+#   - ctypes, winreg, subprocess (Windows integration & shell APIs)
+
+# Required for generating multi-resolution application icons (.ico)
+pillow>=10.0.0
+
+# Required only if compiling the standalone Windows executable (.exe)
+pyinstaller>=6.0.0

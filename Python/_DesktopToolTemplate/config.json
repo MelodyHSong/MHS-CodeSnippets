@@ -1,0 +1,22 @@
+{
+  "app_name": "Desktop Tool Template",
+  "version": "1.0.0",
+  "theme": {
+    "palette": "dark_cosmic",
+    "high_dpi": true
+  },
+  "window": {
+    "width": 1080,
+    "height": 680,
+    "min_width": 780,
+    "min_height": 500
+  },
+  "preferences": {
+    "autosave_enabled": true,
+    "autosave_interval_ms": 2000,
+    "confirm_exit_on_unsaved": true,
+    "font_family": "Consolas",
+    "font_size": 11
+  },
+  "recent_files": []
+}

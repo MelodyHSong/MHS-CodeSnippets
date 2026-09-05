@@ -9,6 +9,7 @@ This directory contains reusable Python code snippets for scripting, automation,
 
 ## ☆ Folder Structure
 * **_DesktopTools**: Specialized standalone utilities for system management and productivity.
+* **_DesktopToolTemplate**: Production-grade starter blueprint and scaffolding for building new Windows desktop tools.
 
 ---
 *Just slithering around~ - MelodyHSong*
