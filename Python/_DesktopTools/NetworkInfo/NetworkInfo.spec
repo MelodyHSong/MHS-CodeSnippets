@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['__main__.py'],
+    ['network_info.py'],
     pathex=[],
     binaries=[],
-    datas=[('data.json', '.')],
+    datas=[('data.json', '.'), ('assets', 'assets')],
     hiddenimports=['psutil'],
     hookspath=[],
     hooksconfig={},
@@ -29,10 +29,11 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['assets/network_info.ico'],
 )

@@ -1,0 +1,11 @@
+# 📡 Melody's Starship Network Visor — Python Dependencies
+# Built-in modules used: tkinter, os, sys, json, time, random, socket, threading, ctypes (no extra install needed)
+
+# High-performance cross-platform system and network telemetry counters
+psutil>=5.9.0
+
+# Required for dynamic multi-resolution icon rendering & asset generation
+pillow>=10.0.0
+
+# Optional: Required only if compiling the standalone Windows executable (.exe)
+pyinstaller>=6.0.0

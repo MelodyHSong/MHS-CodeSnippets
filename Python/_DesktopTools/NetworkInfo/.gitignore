@@ -1,0 +1,41 @@
+# =======================================================
+# 📡 Melody's Starship Network Visor — Git Ignore Configuration
+# =======================================================
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# PyInstaller Build Artifacts & Distributions
+build/
+dist/
+*.manifest
+*.spec.bak
+
+# Setuptools & Wheel Packaging
+*.egg-info/
+.eggs/
+*.whl
+
+# Telemetry Session Exports & Logs
+telemetry_export_*.json
+telemetry_export_*.csv
+*.log
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & OS Metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+ehthumbs.db
+.DS_Store

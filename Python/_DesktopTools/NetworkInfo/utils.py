@@ -1,3 +1,11 @@
+# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+# ☆ Author: ☆ MelodyHSong ☆
+# ☆ Language: Python
+# ☆ File Name: utils.py
+# ☆ Date: September 2026
+# ☆ Description: Network samplers, Win32 ICMP ping, ASCII renderers, and telemetry utilities
+# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+
 import os
 import sys
 import json
@@ -515,3 +523,89 @@ def render_dual_ascii_graph(down_values: List[float], up_values: List[float], wi
     footer = f"{CLR_BOLD}{border_color}└{'─' * width}{CLR_RESET}"
     lines.append(footer)
     return lines
+
+
+def get_active_adapter_info(target_host: str = "8.8.8.8") -> Dict[str, str]:
+    """Resolves active network adapter name, local IPv4 address, and MAC address."""
+    info = {
+        "interface": "Auto-Detect Interface",
+        "ip": "127.0.0.1",
+        "mac": "N/A",
+        "status": "Offline"
+    }
+
+    local_ip = None
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.settimeout(0.5)
+        s.connect((target_host, 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+        info["ip"] = local_ip
+        info["status"] = "Connected"
+    except Exception:
+        pass
+
+    try:
+        import psutil
+        addrs = psutil.net_if_addrs()
+        stats = psutil.net_if_stats()
+
+        matched_iface = None
+        if local_ip:
+            for iface_name, iface_addrs in addrs.items():
+                for addr in iface_addrs:
+                    if addr.family == socket.AF_INET and addr.address == local_ip:
+                        matched_iface = iface_name
+                        info["interface"] = iface_name
+                        break
+                if matched_iface:
+                    break
+
+        if not matched_iface:
+            for iface_name, iface_stat in stats.items():
+                if iface_stat.isup and "loopback" not in iface_name.lower():
+                    matched_iface = iface_name
+                    info["interface"] = iface_name
+                    break
+
+        if matched_iface and matched_iface in addrs:
+            for addr in addrs[matched_iface]:
+                if getattr(addr, 'family', None) not in (socket.AF_INET, getattr(socket, 'AF_INET6', 23)):
+                    if addr.address and len(addr.address.replace('-', ':').split(':')) == 6:
+                        info["mac"] = addr.address.replace('-', ':').upper()
+                        break
+    except Exception:
+        pass
+
+    return info
+
+
+def export_telemetry(metrics_data: Dict[str, Any], filepath: str = None, export_format: str = "json") -> str:
+    """Exports session telemetry metrics to disk in JSON or CSV format."""
+    if filepath is None:
+        ts = time.strftime("%Y%m%d_%H%M%S")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        filename = f"telemetry_export_{ts}.{export_format.lower()}"
+        filepath = os.path.join(base_dir, filename)
+
+    if export_format.lower() == "csv":
+        import csv
+        with open(filepath, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Sample_Index", "Download_KBps", "Upload_KBps", "Latency_ms"])
+            downloads = metrics_data.get("download_history", [])
+            uploads = metrics_data.get("upload_history", [])
+            latencies = metrics_data.get("latency_history", [])
+            n = max(len(downloads), len(uploads), len(latencies))
+            for i in range(n):
+                d = downloads[i] if i < len(downloads) else 0.0
+                u = uploads[i] if i < len(uploads) else 0.0
+                l = latencies[i] if i < len(latencies) else 0.0
+                writer.writerow([i, round(d, 2), round(u, 2), round(l, 2)])
+    else:
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(metrics_data, f, indent=2, ensure_ascii=False)
+
+    return filepath
+

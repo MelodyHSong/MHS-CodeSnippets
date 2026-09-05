@@ -39,9 +39,9 @@
     "Quantum entanglement ping test in progress..."
   ],
   "stats": {
-    "session_peak_download_bps": 6193.506691680856,
-    "session_peak_upload_bps": 1486.2479670077223,
-    "session_total_download_bytes": 4590.0,
-    "session_total_upload_bytes": 1089.0
+    "session_peak_download_bps": 764293.0752261495,
+    "session_peak_upload_bps": 27687.700030279226,
+    "session_total_download_bytes": 3672424.0,
+    "session_total_upload_bytes": 25791.0
   }
 }

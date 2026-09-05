@@ -1,3 +1,11 @@
+# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+# ☆ Author: ☆ MelodyHSong ☆
+# ☆ Language: Python
+# ☆ File Name: core.py
+# ☆ Date: September 2026
+# ☆ Description: NetworkAnalyzer engine and terminal HUD loop
+# ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+
 import sys
 import time
 import random
