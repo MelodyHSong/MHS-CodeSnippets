@@ -1,0 +1,55 @@
+# [Template Tier: Tier 4 (Optional - GitHub Ecosystem & Metadata)]
+# Safe to delete if: This tool is maintained as an internal script/snippet rather than a packaged project.
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "desktop-tool-template"
+version = "1.0.0"
+description = "A sleek, cosmic desktop workstation template for Windows with Tkinter and Shell integration."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Melody H. Song", email = "contact@cassiopeiastudios.com" }
+]
+maintainers = [
+    { name = "Cassiopeia Studios" }
+]
+requires-python = ">=3.8"
+keywords = [
+    "desktop-app",
+    "windows-explorer",
+    "tkinter",
+    "cosmic-ui",
+    "template"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: User Interfaces",
+]
+dependencies = [
+    "pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+build = [
+    "pyinstaller>=6.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/MelodyHSong/MHS-CodeSnippets"
+Repository = "https://github.com/MelodyHSong/MHS-CodeSnippets"
+Issues = "https://github.com/MelodyHSong/MHS-CodeSnippets/issues"

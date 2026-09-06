@@ -34,3 +34,6 @@ ehthumbs.db
 # User Runtime Data & Autosaves (optional custom state)
 *.tmp
 user_data/
+
+# Working Release Notes & Drafts
+/misc/release_notes.md.bak

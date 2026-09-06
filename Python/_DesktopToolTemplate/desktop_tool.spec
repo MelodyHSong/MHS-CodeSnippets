@@ -1,4 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
+# [Template Tier: Tier 3 (Optional - Binary Compilation & PyInstaller)]
+# Safe to delete if: This tool is run only from source via Python and not compiled to an .exe.
 
 a = Analysis(
     ['app.py'],

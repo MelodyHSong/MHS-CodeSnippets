@@ -3,16 +3,26 @@ title Desktop Tool Template - PyInstaller Executable Builder
 color 0E
 chcp 65001 >nul 2>&1
 
+:: [Template Tier: Tier 3 (Optional - Binary Compilation & Release Packaging)]
+:: Safe to delete if: This tool is run only from Python source and not compiled to an .exe.
+
 echo ================================================================
 echo    [+] DESKTOP TOOL TEMPLATE - BUILD STANDALONE EXECUTABLE
 echo ================================================================
 echo.
 
-:: Check if Python is installed
+:: Check if Python or py launcher is installed
+set PYTHON_CMD=
 where python >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
+if %ERRORLEVEL% EQU 0 set PYTHON_CMD=python
+if not defined PYTHON_CMD (
+    where py >nul 2>&1
+    if %ERRORLEVEL% EQU 0 set PYTHON_CMD=py
+)
+if not defined PYTHON_CMD (
     color 0C
     echo [!] Error: Python was not found in your system PATH.
+    echo     Please install Python 3.8+ or add Python to your PATH.
     echo.
     pause
     exit /b 1
@@ -20,21 +30,29 @@ if %ERRORLEVEL% NEQ 0 (
 
 :: Ensure dependencies are present
 echo [i] Checking and installing requirements...
-python -m pip install -r "%~dp0requirements.txt"
+%PYTHON_CMD% -m pip install -r "%~dp0requirements.txt"
 echo.
 
-:: Ensure icon asset is present
+:: Ensure icon asset is present if generator exists
 if not exist "%~dp0assets\app_icon.ico" (
-    echo [i] Generating application icon...
-    python "%~dp0generate_icon.py"
-    echo.
+    if exist "%~dp0generate_icon.py" (
+        echo [i] Generating application icon...
+        %PYTHON_CMD% "%~dp0generate_icon.py"
+        echo.
+    )
 )
 
-:: Run PyInstaller build via setup script
-python "%~dp0setup_integration.py" --build
+:: Prefer full package_release pipeline if present, else fallback to setup_integration
+if exist "%~dp0package_release.py" (
+    echo [i] Executing full release packaging sequence...
+    %PYTHON_CMD% "%~dp0package_release.py"
+) else (
+    echo [i] Compiling standalone executable via setup_integration.py...
+    %PYTHON_CMD% "%~dp0setup_integration.py" --build
+)
 
 echo.
 echo ================================================================
-echo Build complete. Executable is located in dist\desktop_tool.exe
+echo Build complete. Executable / release files are in dist\
 echo ================================================================
 pause

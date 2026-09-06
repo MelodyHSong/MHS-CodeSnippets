@@ -1,0 +1,286 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "template_name": "Desktop Tool Template",
+  "version": "1.0.0",
+  "author": "MelodyHSong (Cassiopeia Studios)",
+  "description": "Production-grade modular scaffolding for Windows desktop utilities and Tkinter workstations.",
+  "tiers": {
+    "tier_1_core": {
+      "name": "Core Essentials",
+      "description": "Mandatory foundational files required for any desktop tool to function.",
+      "required": true
+    },
+    "tier_2_windows": {
+      "name": "Windows Shell Integration",
+      "description": "Explorer right-click context menu file associations, Start Menu & Desktop shortcuts, and HKCU registry configuration.",
+      "required": false
+    },
+    "tier_3_packaging": {
+      "name": "Standalone Binary & Release Packaging",
+      "description": "PyInstaller specification, build scripts, automated portable zip packaging with SHA-256 checksums, and release note drafts.",
+      "required": false
+    },
+    "tier_4_github": {
+      "name": "GitHub Ecosystem & CI/CD",
+      "description": "GitHub Actions automated build/release workflows, issue templates, funding config, contribution guidelines, changelog, and packaging metadata.",
+      "required": false
+    }
+  },
+  "profiles": {
+    "minimal": {
+      "name": "Minimal / Embedded Utility",
+      "description": "Quick, self-contained desktop tool meant to live inside a code snippets folder or be run directly via Python.",
+      "included_tiers": ["tier_1_core"],
+      "recommended_files": [
+        "app.py",
+        "run.bat",
+        "requirements.txt",
+        "assets/app_icon.ico",
+        "generate_icon.py",
+        "config.json",
+        ".gitignore",
+        "LICENSE",
+        "README.md"
+      ]
+    },
+    "shell_integrated": {
+      "name": "Shell-Integrated Desktop App",
+      "description": "Desktop utility that associates with file extensions in Windows Explorer and creates Desktop/Start Menu shortcuts without requiring UAC elevation.",
+      "included_tiers": ["tier_1_core", "tier_2_windows"],
+      "recommended_files": [
+        "app.py",
+        "run.bat",
+        "requirements.txt",
+        "assets/app_icon.ico",
+        "generate_icon.py",
+        "config.json",
+        "setup_integration.py",
+        "setup_context_menu.py",
+        "install.bat",
+        "uninstall.bat",
+        ".gitignore",
+        "LICENSE",
+        "README.md"
+      ]
+    },
+    "portable_dist": {
+      "name": "Standalone Portable Distribution",
+      "description": "Desktop utility ready for standalone binary compilation with PyInstaller and packaging into portable ZIP releases with SHA-256 checksums.",
+      "included_tiers": ["tier_1_core", "tier_2_windows", "tier_3_packaging"],
+      "recommended_files": [
+        "app.py",
+        "run.bat",
+        "requirements.txt",
+        "assets/app_icon.ico",
+        "generate_icon.py",
+        "config.json",
+        "setup_integration.py",
+        "setup_context_menu.py",
+        "install.bat",
+        "uninstall.bat",
+        "desktop_tool.spec",
+        "build.bat",
+        "package_release.py",
+        "misc/release_notes.md",
+        ".gitignore",
+        "LICENSE",
+        "README.md"
+      ]
+    },
+    "full_repository": {
+      "name": "Full Standalone GitHub Repository",
+      "description": "Complete production-ready repository like StellarNotes, complete with CI/CD workflows, issue templates, funding, changelog, and PyPI packaging metadata.",
+      "included_tiers": ["tier_1_core", "tier_2_windows", "tier_3_packaging", "tier_4_github"],
+      "recommended_files": [
+        "*"
+      ]
+    }
+  },
+  "components": [
+    {
+      "path": "app.py",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Core Tkinter application entry point with dark theme, High-DPI scaling, and async background workers."
+    },
+    {
+      "path": "run.bat",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Smart Windows launcher script prioritizing standalone binary -> pythonw -> python."
+    },
+    {
+      "path": "requirements.txt",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Python package dependencies (Pillow for icons, PyInstaller for compilation)."
+    },
+    {
+      "path": "assets/app_icon.ico",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Multi-resolution Windows icon asset (256x256, 48x48, 32x32, 16x16)."
+    },
+    {
+      "path": "generate_icon.py",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Pillow script to programmatically render high-resolution application icons."
+    },
+    {
+      "path": "config.json",
+      "tier": "tier_1_core",
+      "required": false,
+      "description": "Default configuration and user preferences for persistent storage."
+    },
+    {
+      "path": ".gitignore",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Git exclusion rules for PyInstaller builds, bytecode caches, virtualenvs, and user state."
+    },
+    {
+      "path": "LICENSE",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "MIT License terms."
+    },
+    {
+      "path": "README.md",
+      "tier": "tier_1_core",
+      "required": true,
+      "description": "Comprehensive project documentation, quick-start guide, and keyboard shortcuts."
+    },
+    {
+      "path": "setup_integration.py",
+      "tier": "tier_2_windows",
+      "required": false,
+      "description": "Windows Registry manager for Explorer right-click context menus, Desktop & Start Menu shortcuts.",
+      "safe_to_delete_if": "Tool does not require Explorer context menus or Windows shortcuts."
+    },
+    {
+      "path": "setup_context_menu.py",
+      "tier": "tier_2_windows",
+      "required": false,
+      "description": "Compatibility wrapper alias pointing to setup_integration.py.",
+      "safe_to_delete_if": "Tool uses setup_integration.py directly or does not need shell integration."
+    },
+    {
+      "path": "install.bat",
+      "tier": "tier_2_windows",
+      "required": false,
+      "description": "1-click batch script to install Windows context menu and shortcuts.",
+      "safe_to_delete_if": "Tool does not integrate with Windows Explorer or shell shortcuts."
+    },
+    {
+      "path": "uninstall.bat",
+      "tier": "tier_2_windows",
+      "required": false,
+      "description": "1-click batch script to cleanly remove all registry entries and shortcuts.",
+      "safe_to_delete_if": "Tool does not integrate with Windows Explorer or shell shortcuts."
+    },
+    {
+      "path": "desktop_tool.spec",
+      "tier": "tier_3_packaging",
+      "required": false,
+      "description": "PyInstaller specification file defining assets, icon, and windowed executable settings.",
+      "safe_to_delete_if": "Tool is run exclusively from source via Python and not compiled to an .exe."
+    },
+    {
+      "path": "build.bat",
+      "tier": "tier_3_packaging",
+      "required": false,
+      "description": "1-click PyInstaller executable compiler and release package builder.",
+      "safe_to_delete_if": "Tool is not compiled into a standalone Windows binary."
+    },
+    {
+      "path": "package_release.py",
+      "tier": "tier_3_packaging",
+      "required": false,
+      "description": "Automated release pipeline compiling binaries, staging clean zip archives, and generating SHA-256 checksums.",
+      "safe_to_delete_if": "Tool is not distributed as zipped release bundles with checksums."
+    },
+    {
+      "path": "misc/release_notes.md",
+      "tier": "tier_3_packaging",
+      "required": false,
+      "description": "Release announcement template and notes draft for GitHub releases.",
+      "safe_to_delete_if": "Tool does not maintain public release notes."
+    },
+    {
+      "path": "assets/screenshots/.gitkeep",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Directory placeholder for application screenshots referenced in README documentation.",
+      "safe_to_delete_if": "Screenshots are not stored locally in the repo."
+    },
+    {
+      "path": ".github/workflows/build-release.yml",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "GitHub Actions CI/CD pipeline to compile Windows executables and publish GitHub releases on tag push.",
+      "safe_to_delete_if": "Tool is not hosted in a standalone GitHub repository or uses manual builds."
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "GitHub issue template for user bug reports.",
+      "safe_to_delete_if": "Tool is not a standalone public GitHub repository."
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "GitHub issue template for community feature proposals.",
+      "safe_to_delete_if": "Tool is not a standalone public GitHub repository."
+    },
+    {
+      "path": ".github/FUNDING.yml",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Sponsor button configuration for GitHub repository sidebar.",
+      "safe_to_delete_if": "Tool does not accept public sponsorships or is internal."
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Guidelines for open-source contributors covering setup, testing, and PR submissions.",
+      "safe_to_delete_if": "Tool is private or not accepting community contributions."
+    },
+    {
+      "path": "CHANGELOG.md",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Version change history structured per Keep a Changelog standard.",
+      "safe_to_delete_if": "Tool does not maintain formal semantic versioned changelogs."
+    },
+    {
+      "path": "pyproject.toml",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Standard PEP 518/621 project metadata, dependencies, and classifiers.",
+      "safe_to_delete_if": "Tool is not packaged as a standard Python package."
+    },
+    {
+      "path": ".editorconfig",
+      "tier": "tier_4_github",
+      "required": false,
+      "description": "Cross-editor style consistency configuration (indentation, line endings, encoding).",
+      "safe_to_delete_if": "Editor formatting standards are enforced elsewhere."
+    },
+    {
+      "path": "TEMPLATE_GUIDE.md",
+      "tier": "tier_1_core",
+      "required": false,
+      "description": "Architectural guide explaining component modularity, profiles, and pruning instructions for agents and devs."
+    },
+    {
+      "path": "scaffold.py",
+      "tier": "tier_1_core",
+      "required": false,
+      "description": "CLI utility to scaffold new tools with selected profiles or prune existing copies."
+    }
+  ]
+}

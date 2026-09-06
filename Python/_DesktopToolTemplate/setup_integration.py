@@ -3,6 +3,8 @@
 # ☆ Language: Python
 # ☆ File Name: setup_integration.py
 # ☆ Description: Windows context menu, desktop shortcut installer, and PyInstaller builder for Desktop Tool Template.
+# ☆ [Template Tier: Tier 2 (Optional - Windows Shell Integration)]
+# ☆ Safe to delete if: This tool does not integrate with Windows Explorer context menus or shortcuts.
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 import sys
