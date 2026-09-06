@@ -166,4 +166,4 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ---
 
-*Made with ♡ by MelodyHSong / Cassiopeia Studios*
+*Made with ♡ by MelodyHSong*

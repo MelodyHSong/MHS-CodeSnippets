@@ -1,0 +1,17 @@
+# ⭐ Drive Analyzer — Python Dependencies
+#
+# Standard Library Modules Used (No installation required):
+#   - tkinter, ttk (GUI framework & widgets)
+#   - os, sys, json, time, shutil (Filesystem, stats, and state persistence)
+#   - threading, queue (Asynchronous non-blocking background scanner)
+#   - ctypes, winreg, subprocess (Windows integration & shell APIs)
+#   - collections.defaultdict (Fast folder size aggregation)
+
+# Required for generating multi-resolution application icons (.ico)
+pillow>=10.0.0
+
+# Required only if compiling the standalone Windows executable (.exe)
+pyinstaller>=6.0.0
+
+# Optional: Enhanced progress tracker in CLI mode (lightweight fallback built-in)
+tqdm>=4.66.0

@@ -1,0 +1,36 @@
+# ====================================================
+# ⭐ Drive Analyzer — Git Ignore Configuration
+# ====================================================
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# PyInstaller Build Artifacts & Executables
+build/
+dist/
+*.manifest
+*.spec.bak
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+ehthumbs.db
+.DS_Store
+
+# User Runtime Data & Reports
+*.tmp
+user_data/
+reports/
