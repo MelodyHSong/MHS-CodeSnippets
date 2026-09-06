@@ -39,3 +39,7 @@ env/
 Thumbs.db
 ehthumbs.db
 .DS_Store
+ 
+# Private Notes Drafts and Releases
+misc/
+release/
