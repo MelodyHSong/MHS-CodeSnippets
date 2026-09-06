@@ -2,7 +2,7 @@
 
 > "Blueprint for the stars—scaffolding cosmic desktop utilities with ease."
 
-Welcome to the **Desktop Tool Template**! ⭐🛸✨ This directory provides a production-grade, modular foundation for building modern Windows desktop utilities with Python and Tkinter—modeled directly after the architecture, aesthetics, and Windows integration patterns established in **StellarNotes** and **Network Visor**.
+Welcome to the **Desktop Tool Template**! ⭐🛸✨ This directory provides a production-grade, modular foundation for building modern Windows desktop utilities with Python and Tkinter—modeled directly after the architecture, aesthetics, and Windows integration patterns established in **StellarNotes**, **Stellar Snooper**, and **Stellar Visor**.
 
 ---
 

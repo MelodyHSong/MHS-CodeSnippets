@@ -1,4 +1,4 @@
-# 📡 Melody's Starship Network Visor — Python Dependencies
+# 📡 Stellar Visor — Python Dependencies
 # Built-in modules used: tkinter, os, sys, json, time, random, socket, threading, ctypes (no extra install needed)
 
 # High-performance cross-platform system and network telemetry counters

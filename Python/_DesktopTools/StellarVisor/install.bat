@@ -1,10 +1,10 @@
 @echo off
-title NetworkVisor - Desktop Shortcut Uninstaller
-color 0C
+title Stellar Visor - Desktop Shortcut Installer
+color 0E
 chcp 65001 >nul 2>&1
 
 echo ================================================================
-echo    [-] NETWORK VISOR - DESKTOP SHORTCUT UNINSTALLER
+echo    [+] STELLAR VISOR - DESKTOP SHORTCUT INSTALLER
 echo ================================================================
 echo.
 
@@ -19,10 +19,10 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-:: Run the uninstaller
-python "%~dp0setup_desktop.py" --uninstall
+:: Run the installer in auto mode (prefers compiled .exe if present, falls back to pythonw)
+python "%~dp0setup_desktop.py" --install --mode auto
 
 echo.
 echo ================================================================
-echo Press any key to exit this uninstaller...
+echo Press any key to exit this installer...
 pause >nul

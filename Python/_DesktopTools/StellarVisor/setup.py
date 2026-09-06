@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="NetworkInfo",
+    name="stellar-visor",
     version="2.0.0",
-    description="Melody's Starship Network Visor - Cosmic Real-Time Desktop Network Workstation",
+    description="Stellar Visor - Cosmic Real-Time Desktop Network Workstation",
     author="Melody H. Song / Cassiopeia Studios",
     packages=find_packages(),
     package_data={
-        "NetworkInfo": ["data.json", "assets/*"],
+        "StellarVisor": ["data.json", "assets/*"],
     },
     include_package_data=True,
     install_requires=[
@@ -16,10 +16,10 @@ setup(
     ],
     entry_points={
         "gui_scripts": [
-            "networkvisor = NetworkInfo.network_info:main",
+            "stellarvisor = StellarVisor.stellar_visor:main",
         ],
         "console_scripts": [
-            "networkinfo = NetworkInfo.__main__:main",
+            "stellarvisor-cli = StellarVisor.__main__:main",
         ],
     },
     python_requires=">=3.8",

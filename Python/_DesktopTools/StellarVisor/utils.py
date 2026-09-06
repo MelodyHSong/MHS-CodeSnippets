@@ -160,9 +160,12 @@ def get_data_file_path() -> str:
             bundle_root = os.path.join(sys._MEIPASS, "data.json")
             if os.path.exists(bundle_root):
                 return bundle_root
-            bundle_sub = os.path.join(sys._MEIPASS, "NetworkInfo", "data.json")
+            bundle_sub = os.path.join(sys._MEIPASS, "StellarVisor", "data.json")
             if os.path.exists(bundle_sub):
                 return bundle_sub
+            bundle_legacy = os.path.join(sys._MEIPASS, "NetworkInfo", "data.json")
+            if os.path.exists(bundle_legacy):
+                return bundle_legacy
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_dir, "data.json")

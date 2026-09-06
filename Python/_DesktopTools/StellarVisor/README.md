@@ -1,12 +1,14 @@
-# ☆ Melody's Starship Network Visor ☆
+# ☆ Stellar Visor ☆
 
 > "Pinging distant galaxies... sub-space network telemetry online!"
 
-Greetings, Earthling! 🛸👋✨ Strap yourself into the pilot's chair and welcome to **Melody's Starship Network Visor**! 
+Greetings, Earthling! 🛸👋✨ Strap yourself into the pilot's chair and welcome to **Stellar Visor**! 
 
-Ever wonder if your dropped packets got sucked into a passing black hole, or if solar flare space dust is choking your Wi-Fi antenna? 🌌📡 The **Starship Network Visor** is a quirky, delightfully cosmic desktop dashboard that monitors your real-time internet speeds, tracks galactic ping latency, and translates boring network statistics into expressive alien kaomojis and chaotic space chatter.
+Ever wonder if your dropped packets got sucked into a passing black hole, or if solar flare space dust is choking your Wi-Fi antenna? 🌌📡 **Stellar Visor** is a quirky, delightfully cosmic desktop dashboard that monitors your real-time internet speeds, tracks galactic ping latency, and translates boring network statistics into expressive alien kaomojis and chaotic space chatter.
 
 Park it on a secondary monitor during intense gaming sessions, watch your broadband beams surge while downloading massive files, or just enjoy having a friendly little alien co-pilot keeping watch over your home galaxy connection.
+
+<img width="1254" height="875" alt="image" src="https://github.com/user-attachments/assets/7b69eacd-3f9b-4bfb-bc9c-5663e5ee37e3" />
 
 ---
 
@@ -31,7 +33,7 @@ Park it on a secondary monitor during intense gaming sessions, watch your broadb
 - 🚀 **Zero-Bureaucracy 1-Click Launch**:
   - Installs cleanly into your user profile with a custom Alien Flying Saucer icon—no annoying Earthling Administrator / UAC popups required!
 - 🔄 **Dual Engine Modes**:
-  - **Starship Desktop GUI (Default)**: Modern, windowless Tkinter cockpit dashboard powered by Python or standalone `.exe`.
+  - **Cockpit Desktop GUI (Default)**: Modern, windowless Tkinter cockpit dashboard powered by Python or standalone `.exe`.
   - **Retro Terminal HUD**: Run with `--cli` for a flicker-free ANSI ASCII console experience when exploring headless servers.
 
 ---
@@ -43,7 +45,7 @@ Simply double-click:
 ```cmd
 install.bat
 ```
-This drops the **Melody's Starship Network Visor** shortcut directly onto your Windows Desktop and Start Menu with the custom alien ship icon!
+This drops the **Stellar Visor** shortcut directly onto your Windows Desktop and Start Menu with the custom alien ship icon!
 
 ### Option 2: Terminal Navigation
 Prefer taking manual control of the console? You can manage everything via terminal:
@@ -69,7 +71,7 @@ python setup_desktop.py
 ```
 ```text
 ============================================================
-      🛸 NETWORK VISOR — DESKTOP SETUP & BUILDER 📡      
+      🛸 STELLAR VISOR — DESKTOP SETUP & BUILDER 📡      
 ============================================================
   [1] Install Desktop & Start Menu Shortcuts (Standalone .EXE)
   [2] Install Desktop & Start Menu Shortcuts (Python Script / Dev)
@@ -95,18 +97,18 @@ run.bat
 **Desktop Cockpit HUD (Default):**
 ```bash
 # Standard warp speed launch
-python network_info.py
+python stellar_visor.py
 
 # Or via package module
-python -m NetworkInfo
+python -m StellarVisor
 
 # Target a custom space beacon (e.g., Cloudflare 1.1.1.1) at 15 FPS
-python -m NetworkInfo --target 1.1.1.1 --fps 15
+python -m StellarVisor --target 1.1.1.1 --fps 15
 ```
 
 **Classic Terminal HUD (For Cyberpunk Explorers):**
 ```bash
-python -m NetworkInfo --cli
+python -m StellarVisor --cli
 ```
 
 ### ⌨️ Cockpit Controls & Hotkeys
@@ -147,17 +149,17 @@ Toss in your own hilarious alien quotes, adjust ping sensitivity, and make the s
 ## ☆ Starship Architecture
 
 ```
-NetworkInfo/
+StellarVisor/
 ├── assets/                  # High-resolution cosmic icons
-│   ├── network_info.ico     # Multi-res Windows icon (256, 48, 32, 16)
-│   └── network_info.png     # 256x256 Alien Saucer PNG asset
+│   ├── stellar_visor.ico    # Multi-res Windows icon (256, 48, 32, 16)
+│   └── stellar_visor.png    # 256x256 Alien Saucer PNG asset
 ├── build.bat                # 1-Click PyInstaller executable builder
 ├── data.json                # Alien expressions, lore, settings & stats
 ├── generate_icon.py         # Pillow-based multi-resolution icon generator
 ├── install.bat              # 1-Click Desktop & Start Menu shortcut installer
 ├── LICENSE                  # MIT License (Melody H. Song / Cassiopeia Studios)
-├── network_info.py          # Starship Network Visor desktop GUI workstation
-├── NetworkInfo.spec         # PyInstaller windowed executable specification
+├── stellar_visor.py         # Stellar Visor desktop GUI workstation
+├── stellar_visor.spec       # PyInstaller windowed executable specification
 ├── README.md                # Cosmic documentation & flight manual
 ├── requirements.txt         # Documented Python dependencies
 ├── run.bat                  # 1-Click application launcher
@@ -179,6 +181,15 @@ To cleanly decommission the desktop and start menu shortcuts at any time:
 - **CLI**: `python setup_desktop.py --uninstall`
 
 All shortcuts are cleanly purged without leaving any space debris behind.
+
+---
+
+## ☆ Repository & Sibling Projects
+
+Stellar Visor is part of the cosmic utility family by Melody H. Song / Cassiopeia Studios:
+- **[StellarNotes](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/MHS-CodeSnippets/Python/_DesktopTools/StellarNotes)** — Cosmic desktop note-taking and voice narration workstation
+- **[Stellar Snooper](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/MHS-CodeSnippets/Python/_DesktopTools/DriveAnalyzer)** — Cosmic storage analysis and disk space investigator
+- **[Stellar Visor](file:///c:/Users/Melody/Desktop/Cassiopeia%20Studios/Codebase/MHS-CodeSnippets/Python/_DesktopTools/StellarVisor)** (`Stellar-Visor`) — Cosmic real-time desktop network monitoring workstation
 
 ---
 

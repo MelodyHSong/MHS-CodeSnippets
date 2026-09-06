@@ -1,10 +1,10 @@
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 # ☆ Author: ☆ MelodyHSong ☆
 # ☆ Language: Python
-# ☆ File Name: network_info.py
+# ☆ File Name: stellar_visor.py
 # ☆ Date: September 2026
 # ☆
-# ☆ Description: Melody's Starship Network Visor - Cosmic real-time desktop network monitoring workstation.
+# ☆ Description: Stellar Visor - Cosmic real-time desktop network monitoring workstation.
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 import os
@@ -81,10 +81,10 @@ FONT_STATS = ("Consolas", 9)
 FONT_TICKER = ("Segoe UI", 10, "italic")
 
 
-class NetworkVisorApp:
+class StellarVisorApp:
     def __init__(self, root, ping_target=None, fps=None):
         self.root = root
-        self.root.title("📡 Melody's Starship Network Visor - [Cosmic Telemetry HUD]")
+        self.root.title("⭐ Stellar Visor - [Cosmic Telemetry HUD]")
         self.root.geometry("1160x780")
         self.root.minsize(940, 640)
         self.root.configure(bg=BG_DARK)
@@ -171,9 +171,9 @@ class NetworkVisorApp:
     # ☆ ICON MANAGEMENT
     # ==========================================================================
     def set_app_icon(self):
-        icon_path = os.path.join(self.app_dir, "assets", "network_info.ico")
+        icon_path = os.path.join(self.app_dir, "assets", "stellar_visor.ico")
         if not os.path.exists(icon_path):
-            icon_path = os.path.join(self.base_dir, "assets", "network_info.ico")
+            icon_path = os.path.join(self.base_dir, "assets", "stellar_visor.ico")
         if os.path.exists(icon_path):
             try:
                 self.root.iconbitmap(icon_path)
@@ -205,7 +205,7 @@ class NetworkVisorApp:
 
         self.brand_title = tk.Label(
             self.brand_frame,
-            text="MELODY'S STARSHIP NETWORK VISOR",
+            text="⭐ STELLAR VISOR",
             font=FONT_TITLE,
             bg=CONSOLE_FRAME,
             fg=ACCENT_CYAN
@@ -973,8 +973,12 @@ class NetworkVisorApp:
 
 def main():
     root = tk.Tk()
-    app = NetworkVisorApp(root)
+    app = StellarVisorApp(root)
     root.mainloop()
+
+
+# Backward compatibility alias
+NetworkVisorApp = StellarVisorApp
 
 
 if __name__ == "__main__":

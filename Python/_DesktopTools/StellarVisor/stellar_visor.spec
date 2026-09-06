@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['network_info.py'],
+    ['stellar_visor.py'],
     pathex=[],
     binaries=[],
     datas=[('data.json', '.'), ('assets', 'assets')],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='NetworkInfo',
+    name='stellar_visor',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets/network_info.ico'],
+    icon=['assets/stellar_visor.ico'],
 )

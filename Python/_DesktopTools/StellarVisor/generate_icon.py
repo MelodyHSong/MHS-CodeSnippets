@@ -2,7 +2,7 @@
 # ☆ Author: ☆ MelodyHSong ☆
 # ☆ Language: Python
 # ☆ File Name: generate_icon.py
-# ☆ Description: Generates multi-resolution .ico & .png assets: Alien Ship with Network Signals
+# ☆ Description: Generates multi-resolution .ico & .png assets for Stellar Visor: Alien Ship with Network Signals
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 import os
@@ -39,10 +39,10 @@ def draw_arc_segment(draw, cx, cy, radius, start_deg, end_deg, color, width=3):
     draw.arc(bbox, start=start_deg, end=end_deg, fill=color, width=width)
 
 
-def create_network_visor_icon(output_dir):
+def create_stellar_visor_icon(output_dir):
     os.makedirs(output_dir, exist_ok=True)
-    ico_path = os.path.join(output_dir, "network_info.ico")
-    png_path = os.path.join(output_dir, "network_info.png")
+    ico_path = os.path.join(output_dir, "stellar_visor.ico")
+    png_path = os.path.join(output_dir, "stellar_visor.png")
 
     sizes = [(256, 256), (48, 48), (32, 32), (16, 16)]
     images = []
@@ -240,7 +240,7 @@ def create_network_visor_icon(output_dir):
         append_images=images[1:]
     )
 
-    print(f"✨ Successfully generated Alien Ship & Network Signal icons:")
+    print(f"✨ Successfully generated Stellar Visor icons:")
     print(f"   [+] ICO: {ico_path}")
     print(f"   [+] PNG: {png_path}")
     return ico_path, png_path
@@ -249,4 +249,4 @@ def create_network_visor_icon(output_dir):
 if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.abspath(__file__))
     assets_dir = os.path.join(base_dir, "assets")
-    create_network_visor_icon(assets_dir)
+    create_stellar_visor_icon(assets_dir)

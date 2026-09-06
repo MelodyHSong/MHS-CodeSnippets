@@ -1,25 +1,25 @@
 @echo off
-title NetworkVisor - Launcher
+title Stellar Visor - Launcher
 color 0B
 chcp 65001 >nul 2>&1
 
 :: Prefer standalone compiled executable if it exists
-if exist "%~dp0dist\NetworkInfo.exe" (
-    start "" "%~dp0dist\NetworkInfo.exe" %*
+if exist "%~dp0dist\stellar_visor.exe" (
+    start "" "%~dp0dist\stellar_visor.exe" %*
     exit /b 0
 )
 
 :: Run with pythonw for silent windowless launch
 where pythonw >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
-    start "" pythonw "%~dp0network_info.py" %*
+    start "" pythonw "%~dp0stellar_visor.py" %*
     exit /b 0
 )
 
 :: Fall back to standard python
 where python >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
-    python "%~dp0network_info.py" %*
+    python "%~dp0stellar_visor.py" %*
     exit /b 0
 )
 

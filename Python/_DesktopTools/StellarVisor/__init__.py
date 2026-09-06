@@ -2,10 +2,10 @@
 # ☆ Author: ☆ MelodyHSong ☆
 # ☆ Language: Python
 # ☆ File Name: __init__.py
-# ☆ Description: NetworkInfo package initialization
+# ☆ Description: StellarVisor package initialization
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 from .core import NetworkAnalyzer
-from .network_info import NetworkVisorApp
+from .stellar_visor import StellarVisorApp, NetworkVisorApp
 
-__all__ = ["NetworkAnalyzer", "NetworkVisorApp"]
+__all__ = ["NetworkAnalyzer", "StellarVisorApp", "NetworkVisorApp"]

@@ -4,7 +4,7 @@
 # ☆ File Name: setup_desktop.py
 # ☆ Date: September 2026
 # ☆
-# ☆ Description: Desktop & Start Menu shortcut manager and PyInstaller builder for Network Visor.
+# ☆ Description: Desktop & Start Menu shortcut manager and PyInstaller builder for Stellar Visor.
 # ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
 
 import sys
@@ -22,13 +22,13 @@ if sys.platform == "win32":
 
 # Constants & Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DIST_EXE = os.path.join(BASE_DIR, "dist", "NetworkInfo.exe")
-SCRIPT_PATH = os.path.join(BASE_DIR, "network_info.py")
-ASSET_ICON = os.path.join(BASE_DIR, "assets", "network_info.ico")
-SPEC_PATH = os.path.join(BASE_DIR, "NetworkInfo.spec")
+DIST_EXE = os.path.join(BASE_DIR, "dist", "stellar_visor.exe")
+SCRIPT_PATH = os.path.join(BASE_DIR, "stellar_visor.py")
+ASSET_ICON = os.path.join(BASE_DIR, "assets", "stellar_visor.ico")
+SPEC_PATH = os.path.join(BASE_DIR, "stellar_visor.spec")
 
-SHORTCUT_NAME = "Melody's Starship Network Visor.lnk"
-APP_DESCRIPTION = "Melody's Starship Network Visor - Cosmic Real-Time Network Telemetry Workstation"
+SHORTCUT_NAME = "Stellar Visor.lnk"
+APP_DESCRIPTION = "Stellar Visor - Cosmic Real-Time Network Telemetry Workstation"
 
 
 def get_pythonw_path():
@@ -89,7 +89,7 @@ def create_shortcut(target_path, arguments, shortcut_path, icon_path, working_di
 
 def check_status():
     """Inspect current shortcut locations and display status."""
-    print("\n🔍 Checking Network Visor Installation Status...")
+    print("\n🔍 Checking Stellar Visor Installation Status...")
     found_any = False
 
     targets = [
@@ -125,14 +125,14 @@ def check_status():
 
 def install(mode="auto"):
     """Installs Desktop and Start Menu shortcuts."""
-    print(f"\n🛸 Installing Melody's Starship Network Visor shortcuts (Mode: {mode.upper()})...")
+    print(f"\n🛸 Installing Stellar Visor shortcuts (Mode: {mode.upper()})...")
 
     # Ensure icon exists
     if not os.path.exists(ASSET_ICON):
         print("[i] Icon asset not found. Generating now...")
         try:
-            from generate_icon import create_network_visor_icon
-            create_network_visor_icon(os.path.join(BASE_DIR, "assets"))
+            from generate_icon import create_stellar_visor_icon
+            create_stellar_visor_icon(os.path.join(BASE_DIR, "assets"))
         except Exception as e:
             print(f"[!] Warning: Could not auto-generate icon: {e}")
 
@@ -185,13 +185,13 @@ def install(mode="auto"):
     refresh_explorer()
     print(f"\n✨ Installation complete! Created {success_count} shortcut(s).")
     print(f"🎯 Target: {target_path} {arguments}".strip())
-    print("💡 Double-click the shortcut on your Desktop or search 'Network Visor' in Start Menu to launch!")
+    print("💡 Double-click the shortcut on your Desktop or search 'Stellar Visor' in Start Menu to launch!")
     return True
 
 
 def uninstall():
     """Removes created Desktop and Start Menu shortcuts."""
-    print("\n🧹 Initializing Network Visor Shortcut Removal...")
+    print("\n🧹 Initializing Stellar Visor Shortcut Removal...")
     removed_count = 0
 
     shortcut_targets = [
@@ -217,14 +217,14 @@ def uninstall():
 
 def build_executable():
     """Build or rebuild standalone executable with PyInstaller."""
-    print("\n🛸 Launching PyInstaller build sequence for Starship Network Visor...")
+    print("\n🛸 Launching PyInstaller build sequence for Stellar Visor...")
 
     # Ensure icon exists
     if not os.path.exists(ASSET_ICON):
         print("[i] Ensuring icon assets are ready...")
         try:
-            from generate_icon import create_network_visor_icon
-            create_network_visor_icon(os.path.join(BASE_DIR, "assets"))
+            from generate_icon import create_stellar_visor_icon
+            create_stellar_visor_icon(os.path.join(BASE_DIR, "assets"))
         except Exception as e:
             print(f"[!] Warning: Icon generation error: {e}")
 
@@ -246,7 +246,7 @@ def interactive_menu():
     """Terminal UI for interactive setup."""
     while True:
         print("\n" + "=" * 60)
-        print("      🛸 NETWORK VISOR — DESKTOP SETUP & BUILDER 📡      ")
+        print("      🛸 STELLAR VISOR — DESKTOP SETUP & BUILDER 📡      ")
         print("=" * 60)
         print("  [1] Install Desktop & Start Menu Shortcuts (Standalone .EXE)")
         print("  [2] Install Desktop & Start Menu Shortcuts (Python Script / Dev)")
@@ -276,7 +276,7 @@ def interactive_menu():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Starship Network Visor Desktop Setup")
+    parser = argparse.ArgumentParser(description="Stellar Visor Desktop Setup")
     parser.add_argument("--install", action="store_true", help="Install Desktop and Start Menu shortcuts")
     parser.add_argument("--uninstall", action="store_true", help="Uninstall shortcuts")
     parser.add_argument("--status", action="store_true", help="Check current installation status")

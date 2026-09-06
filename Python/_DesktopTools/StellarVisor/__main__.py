@@ -12,10 +12,10 @@ import argparse
 
 try:
     from .core import NetworkAnalyzer
-    from .network_info import NetworkVisorApp
+    from .stellar_visor import StellarVisorApp
 except (ImportError, ValueError):
     from core import NetworkAnalyzer
-    from network_info import NetworkVisorApp
+    from stellar_visor import StellarVisorApp
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
         os.system("")
 
     parser = argparse.ArgumentParser(
-        description="Melody's Starship Network Visor - Cosmic Real-Time Network Telemetry Workstation"
+        description="Stellar Visor - Cosmic Real-Time Network Telemetry Workstation"
     )
     parser.add_argument(
         "--cli",
@@ -52,7 +52,7 @@ def main():
     else:
         import tkinter as tk
         root = tk.Tk()
-        app = NetworkVisorApp(root, ping_target=args.target, fps=args.fps)
+        app = StellarVisorApp(root, ping_target=args.target, fps=args.fps)
         root.mainloop()
 
 

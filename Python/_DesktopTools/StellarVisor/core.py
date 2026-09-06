@@ -176,7 +176,7 @@ class NetworkAnalyzer:
 
         # Header Box (Colored according to state: GREEN/YELLOW/RED)
         frame_lines.append(f"{CLR_BOLD}{border_color}╔{'═' * box_width}╗{CLR_RESET}")
-        title = f" 👽 ALIEN HUD NETWORK ANALYZER 👽 [STATE: {state_name}] (FPS: {actual_fps:4.1f}/{self.target_fps}) "
+        title = f" ⭐ STELLAR VISOR TELEMETRY ANALYZER ⭐ [STATE: {state_name}] (FPS: {actual_fps:4.1f}/{self.target_fps}) "
         frame_lines.append(f"{CLR_BOLD}{border_color}║{CLR_RESET}{main_color}{center_ansi(title, box_width)}{CLR_RESET}{CLR_BOLD}{border_color}║{CLR_RESET}")
         frame_lines.append(f"{CLR_BOLD}{border_color}╠{'═' * box_width}╣{CLR_RESET}")
 

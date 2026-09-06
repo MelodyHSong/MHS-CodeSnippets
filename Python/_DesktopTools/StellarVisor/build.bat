@@ -1,10 +1,10 @@
 @echo off
-title NetworkVisor - PyInstaller Executable Builder
+title Stellar Visor - PyInstaller Executable Builder
 color 0E
 chcp 65001 >nul 2>&1
 
 echo ================================================================
-echo    [+] NETWORK VISOR - BUILD STANDALONE EXECUTABLE
+echo    [+] STELLAR VISOR - BUILD STANDALONE EXECUTABLE
 echo ================================================================
 echo.
 
@@ -33,6 +33,6 @@ python "%~dp0setup_desktop.py" --build
 
 echo.
 echo ================================================================
-echo Build complete. Executable is located in dist\NetworkInfo.exe
+echo Build complete. Executable is located in dist\stellar_visor.exe
 echo ================================================================
 pause
