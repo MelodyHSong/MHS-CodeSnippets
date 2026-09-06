@@ -1,5 +1,5 @@
 # ====================================================
-# ⭐ Drive Analyzer — Git Ignore Configuration
+# ⭐ Stellar Snooper — Git Ignore Configuration
 # ====================================================
 
 # Python Bytecode & Cache
@@ -30,7 +30,8 @@ Thumbs.db
 ehthumbs.db
 .DS_Store
 
-# User Runtime Data & Reports
+# User Runtime Data, Reports & Private Notes
 *.tmp
 user_data/
 reports/
+misc/
