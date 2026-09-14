@@ -19,7 +19,7 @@ Welcome to the **Desktop Tool Template**! ⭐🛸✨ This directory provides a p
 │ (desktop_tool.spec, build.bat, package_release.py, misc/)       │
 ├─────────────────────────────────────────────────────────────────┤
 │ Tier 2: Windows Shell Integration                               │
-│ (setup_integration.py, install.bat, uninstall.bat)             │
+│ (setup_integration.py, install.bat, uninstall.bat)              │
 ├─────────────────────────────────────────────────────────────────┤
 │ Tier 1: Core Essentials (Mandatory)                             │
 │ (app.py, run.bat, requirements.txt, assets/, .gitignore, etc.)  │
