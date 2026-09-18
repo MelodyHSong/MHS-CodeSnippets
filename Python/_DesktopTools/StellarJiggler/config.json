@@ -1,0 +1,26 @@
+{
+  "app_name": "StellarJiggler",
+  "version": "1.0.0",
+  "theme": {
+    "palette": "dark_cosmic",
+    "high_dpi": true
+  },
+  "window": {
+    "width": 540,
+    "height": 680,
+    "min_width": 480,
+    "min_height": 600,
+    "always_on_top": false
+  },
+  "preferences": {
+    "interval_seconds": 30,
+    "jiggle_mode": "subtle",
+    "smart_pause_enabled": true,
+    "smart_pause_threshold_sec": 5,
+    "wake_lock_enabled": true,
+    "start_active_on_launch": false,
+    "stealth_pixels": 1,
+    "orbital_radius": 12,
+    "log_history_limit": 100
+  }
+}

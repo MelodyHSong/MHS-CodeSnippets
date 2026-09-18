@@ -1,0 +1,130 @@
+name: Build & Release Desktop Tool
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version tag (e.g. v1.0.1 or 1.0.1). Leave empty to only build without releasing.'
+        required: false
+        default: ''
+        type: string
+      draft:
+        description: 'Create as a draft release'
+        required: false
+        default: false
+        type: boolean
+      prerelease:
+        description: 'Create as a pre-release'
+        required: false
+        default: false
+        type: boolean
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Generate multi-resolution icons (if present)
+        shell: pwsh
+        run: |
+          if (Test-Path "generate_icon.py") {
+            python generate_icon.py
+          }
+
+      - name: Build executable and package release bundle
+        run: |
+          python package_release.py
+
+      - name: Verify release artifacts
+        shell: pwsh
+        run: |
+          $binaries = Get-ChildItem -Path "dist" -Filter "*.exe"
+          if ($binaries.Count -eq 0) {
+            Write-Error "No .exe executable was found in dist/"
+            exit 1
+          }
+          $zips = Get-ChildItem -Path "dist" -Filter "*.zip"
+          if ($zips.Count -eq 0) {
+            Write-Error "No .zip distribution package was found in dist/"
+            exit 1
+          }
+          Write-Host "Artifacts compiled successfully in dist/:"
+          Get-ChildItem -Path "dist" | Format-Table Name, Length
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Desktop-Tool-Windows-x64
+          path: dist/*
+          if-no-files-found: error
+
+      - name: Determine Release Metadata
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.version != '')
+        id: meta
+        shell: pwsh
+        run: |
+          $draft = "false"
+          $prerelease = "false"
+
+          if ('${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.version }}' -ne '') {
+            $tag = '${{ inputs.version }}'.Trim()
+            if (-not $tag.StartsWith('v')) {
+              $tag = "v$tag"
+            }
+            $title = "Release $tag"
+            if ('${{ inputs.draft }}' -eq 'true') { $draft = "true" }
+            if ('${{ inputs.prerelease }}' -eq 'true') { $prerelease = "true" }
+          } elseif ('${{ github.event_name }}' -eq 'release') {
+            $tag = '${{ github.event.release.tag_name }}'
+            $title = '${{ github.event.release.name }}'
+            if (-not $title) { $title = "Release $tag" }
+            if ('${{ github.event.release.draft }}' -eq 'true') { $draft = "true" }
+            if ('${{ github.event.release.prerelease }}' -eq 'true') { $prerelease = "true" }
+          } else {
+            $tag = '${{ github.ref_name }}'
+            $title = "Release $tag"
+          }
+
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "tag=$tag"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "title=$title"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "draft=$draft"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "prerelease=$prerelease"
+
+      - name: Publish to GitHub Releases
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.version != '')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: ${{ steps.meta.outputs.title }}
+          draft: ${{ steps.meta.outputs.draft == 'true' }}
+          prerelease: ${{ steps.meta.outputs.prerelease == 'true' }}
+          files: |
+            dist/*.exe
+            dist/*.zip
+            dist/SHA256SUMS.txt
+          generate_release_notes: true
